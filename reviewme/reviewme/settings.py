@@ -29,6 +29,13 @@ ALLOWED_HOSTS = []
 
 
 # mailgun settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.mailgun.org'
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = 'postmaster@sandboxc0c1bcb688814d6c94674b7d42ca1018.mailgun.org'
+EMAIL_HOST_PASSWORD = 'c2fdc665937fe6c3a3f2308955bc0448'
+
 MAILGUN_URL = 'https://api.mailgun.net/v3/sandboxc0c1bcb688814d6c94674b7d42ca1018.mailgun.org'
 MAILGUN_API_KEY = 'key-37d788bd314bf02a7fbb52dfe24efe4a'
 MAILGUN_DOMAIN = 'sandboxc0c1bcb688814d6c94674b7d42ca1018.mailgun.org'
