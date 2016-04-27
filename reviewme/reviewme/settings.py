@@ -28,6 +28,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# mailgun settings
+MAILGUN_URL = 'https://api.mailgun.net/v3/sandboxc0c1bcb688814d6c94674b7d42ca1018.mailgun.org'
+MAILGUN_API_KEY = 'key-37d788bd314bf02a7fbb52dfe24efe4a'
+MAILGUN_DOMAIN = 'sandboxc0c1bcb688814d6c94674b7d42ca1018.mailgun.org'
+
+
 # Application definition
 
 INSTALLED_APPS = [
