@@ -28,13 +28,13 @@ from django.utils.crypto import get_random_string
 def signupUser(request):
 	if request.method == "POST":
 		try: #checking the validity of first / last name
-			first_name = request.POST['firstName']
-			last_name = request.POST['lastName']
-			if len(first_name) > 30 or len(first_name) < 2:
-				raise ValidationError("Invalid length of first name")
+			# first_name = request.POST['firstName']
+			# last_name = request.POST['lastName']
+			# if len(first_name) > 30 or len(first_name) < 2:
+			# 	raise ValidationError("Invalid length of first name")
 
-			if len(last_name) > 30 or len(last_name) < 2:
-				raise ValidationError("Invalid length of last name")
+			# if len(last_name) > 30 or len(last_name) < 2:
+			# 	raise ValidationError("Invalid length of last name")
 
 		    #checking the validity of email
 			email = request.POST['email']
@@ -53,8 +53,8 @@ def signupUser(request):
 
 		try:
 			user = User.objects.create_user(email, email, password)
-			user.first_name = first_name
-			user.last_name = last_name
+			user.first_name = "Test"
+			user.last_name = "Subject"
 			user.is_active = False
 			user.save()
 
@@ -102,8 +102,7 @@ def verification_confirm(request, uuid, ver_code):
 		return HttpResponseRedirect(reverse("users:verification_complete"))
 
 	else:
-		context = { 'text' : 'You have arrived here via an invalid link\
-					', 'heading' : 'Invalid Link' }
+		raise Http404()
 	return render(request, 'users/verification.html', context)
 
 #method to complete the verification process

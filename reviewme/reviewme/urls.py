@@ -22,4 +22,5 @@ urlpatterns = [
 	url(r'^', include('home.urls', namespace="home")),
     url(r'^admin/', admin.site.urls),
     url(r'^login/', global_views.login_view, name='login'),
+    url(r'^user/', include('users.urls', namespace="users")),
 ]
