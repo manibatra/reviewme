@@ -15,9 +15,8 @@
   <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
+        <li><a  class="btn modal-trigger" href="#loginModal">Login</a></li>
       </ul>
-
       <ul id="nav-mobile" class="side-nav">
         <li><a href="#">Navbar Link</a></li>
       </ul>
@@ -44,6 +43,20 @@
     <div class="section">
 
       <!--   Icon Section   -->
+      <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate">
+          <label for="email">Email</label>
+        </div>
+      </div>
+    </form>
       <div class="row">
         <div class="col s12 m4">
           <div class="icon-block">
@@ -129,6 +142,16 @@
 
   }); // end of document ready
 })(jQuery); // end of jQuery name space
+
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+
+   $(document).ready(function() {
+    Materialize.updateTextFields();
+  });
+
   </script>
 
   </body>
