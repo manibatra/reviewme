@@ -26,6 +26,8 @@ from django.utils.crypto import get_random_string
 # Create your views here.
 #method to signup the user and login at the same time
 def signupUser(request):
+	if request.method == "GET":
+		return render(request, 'users/signup.html', {})
 	if request.method == "POST":
 		try: #checking the validity of first / last name
 			# first_name = request.POST['firstName']
@@ -113,8 +115,6 @@ def verification_complete(request):
 
 #method to login the user
 def loginUser(request):
-	if request.method == "GET":
-		return render(request, 'users/login.html', {})
 	if request.method == "POST":
 		try: #checking the validity of email
 			email = request.POST['emailLogIn']
