@@ -115,13 +115,15 @@ def verification_complete(request):
 
 #method to login the user
 def loginUser(request):
+	if request.method == "GET":
+		return render(request, 'users/login.html', {})
 	if request.method == "POST":
 		try: #checking the validity of email
-			email = request.POST['emailLogIn']
+			email = request.POST['email']
 			validate_email(email)
 
 		 	#checking the validity of password
-			password = request.POST['passwordLogIn']
+			password = request.POST['password']
 			if len(password) < 6:
 				raise ValidationError("Minimum password length should be 6")
 
