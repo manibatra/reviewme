@@ -139,7 +139,7 @@ def loginUser(request):
 			else:
 				response = {'status' : 0, 'msg' : 'Please confirm your email address to login'}
 		else:
-			response = {'status' : 0, 'msg' : 'user could not be loged in! try again'}
+			response = {'status' : 0, 'msg' : 'Wrong email or password'}
 
 	else:
 		raise Http404()
