@@ -7,7 +7,7 @@ $("#loginForm").submit(function(event) {
         success: function(data) {
             if (data.status == 1) {
                 $('.fadeMe').hide();
-                window.location.replace('/user/verification-start/')
+                window.location.replace('/users/verification-start/')
             } else if (data.status == 0) {
                 $('.fadeMe').hide();
                 alert(data.msg);

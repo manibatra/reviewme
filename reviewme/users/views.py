@@ -65,7 +65,7 @@ def signupUser(request):
 			user_ver_object.save()
 			user_uuid = user_ver_object.id
 
-			ver_key_url = request.build_absolute_uri("/user/verification-confirm/")
+			ver_key_url = request.build_absolute_uri("/users/verification-confirm/")
 			ver_key_url = ver_key_url + str(user_uuid) + ver_key
 
 			emailHTML = generate_email_HTML(ver_key_url)
@@ -113,6 +113,8 @@ def verification_complete(request):
 
 #method to login the user
 def loginUser(request):
+	if request.method == "GET":
+		return render(request, 'users/login.html', {})
 	if request.method == "POST":
 		try: #checking the validity of email
 			email = request.POST['emailLogIn']
