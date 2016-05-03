@@ -137,7 +137,7 @@ def loginUser(request):
 				login(request, user)
 				response = {'status' : 1}
 			else:
-				response = {'status' : 0, 'msg' : 'Please confirm your email address to login'}
+				response = {'status' : 2, 'msg' : 'Please confirm your email address to login'}
 		else:
 			response = {'status' : 0, 'msg' : 'Wrong email or password'}
 
