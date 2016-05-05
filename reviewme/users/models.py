@@ -6,6 +6,7 @@ import uuid
 
 
 #model to save the user verification code
+# Create your models here.
 class UserVerification(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
