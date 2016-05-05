@@ -7,3 +7,4 @@ from django.contrib.auth.models import User
 class Role(models.Model):
 	user = models.OneToOneField(User, on_delete = models.CASCADE)
 	student = models.BooleanField()
+	reviewer = models.BooleanField()
