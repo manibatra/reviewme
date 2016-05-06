@@ -4,13 +4,13 @@ $("#signupForm").submit(function(event) {
         type: "POST",
         url: $('#signupForm').attr('action'), // or whatever
         data: $('#signupForm').serialize(),
-        success: function(data) {
-            if (data.status == 1) {
+        success: function(response) {
+            if (response.status == 1) {
                 $('.fadeMe').hide();
                 window.location.replace('/users/verification-start/')
-            } else if (data.status == 0) {
+            } else if (response.status == 0) {
                 $('.fadeMe').hide();
-                alert(data.msg);
+                alert(response.msg);
             }
         }
     });

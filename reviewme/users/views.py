@@ -17,6 +17,7 @@ from .utils import *
 
 #importing the models
 from .models import UserVerification
+from projects.models import Role
 from django.utils.crypto import get_random_string
 
 
@@ -59,6 +60,16 @@ def signupUser(request):
 			user.last_name = last_name
 			user.is_active = False
 			user.save()
+
+			user_role_obj = Role(user=user, student=False, reviewer=False)
+			role_list = request.POST.getlist('role')
+			if('1' in role_list):
+				user_role_obj.student = True
+			if('2' in role_list):
+				user_role_obj.reviewer = True
+
+			user_role_obj.save()
+
 
 			response = {'status' : 1}
 
