@@ -22,6 +22,7 @@ class Project(models.Model):
 	submitted_on = models.DateTimeField(auto_now_add=True)
 	returned_on = models.DateTimeField()
 	cost = models.IntegerField()
+	finished = models.BooleanField(default=False)
 
 
 def review_directory_path(instance, filename):
