@@ -11,9 +11,12 @@ class Role(models.Model):
 
 class Category(models.Model):
 	name = models.CharField(max_length=132)
+	description = models.TextField()
+
 
 class SubCategory(models.Model):
 	name = models.CharField(max_length=132)
+	description = models.TextField()
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 class Project(models.Model):
