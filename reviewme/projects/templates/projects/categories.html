@@ -35,7 +35,13 @@
 <main>
   <div class="container margin-top-25">
     <div class="row left-align">
+        {% if type == "categories" %}
+        <h2 class="thin">Fields of Study</h2>
+        {% elif type == "subcategories" %}
+        <h2 class="thin">Topics</h2>
+        {% else %}
         <h2 class="thin">Projects</h2>
+        {% endif %}
     </div>
     <div class="row margin-top-25">
         {% for item in items %}
@@ -46,7 +52,13 @@
               <p class="light-blue-text">{{ item.description }}</p>
             </div>
             <div class="card-action">
-              <a href="{% url 'projects:sub_categories' item.id %}" class="teal-text text-darken-2">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
+              {% if type == "categories" %}
+               <a href="{% url 'projects:sub_categories' item.id %}" class="teal-text text-darken-2">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
+              {% elif type == "subcategories" %}
+               <a href="{% url 'projects:projects' item.id %}" class="teal-text text-darken-2">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
+              {% else %}
+               <a href="#" class="teal-text text-darken-2">Start Project</a>
+              {% endif %}
             </div>
           </div>
         </div>
