@@ -17,7 +17,13 @@ class SubCategory(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 class Project(models.Model):
+	name = models.CharField(max_length=132)
+	description = models.TextField()
 	sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+
+
+class Submission(models.Model):
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
 	student = models.ForeignKey(User, on_delete=models.CASCADE)
 	submitted_on = models.DateTimeField(auto_now_add=True)
 	returned_on = models.DateTimeField()
