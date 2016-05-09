@@ -37,18 +37,33 @@
        <div class="row left-align">
         <h2 class="thin">{{ project.name }}</h2>
       </div>
-      <div class="row margin-top-25">
-        <form action="#">
-          <div class="file-field input-field">
-            <div class="btn">
-              <span>File</span>
-              <input type="file">
+      <div class="row margin-top-100">
+        <div class="col s12 m8">
+          <form action="#">
+            <div class="file-field input-field">
+              <div class="btn">
+                <span>Choose File</span>
+                <input type="file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
             </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
+            <div class="row">
+              <div class="input-field col s12 m12">
+                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                <label for="icon_prefix2">Message for the reviewer</label>
+              </div>
             </div>
-          </div>
-        </form>
+            <div class="row">
+              <div class="col s12 m12">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </main>
