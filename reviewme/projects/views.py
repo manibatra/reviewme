@@ -1,6 +1,12 @@
 from django.shortcuts import render
 from .models import Category, SubCategory, Project, Submission
 from django.db.models import Count
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect,HttpResponse, Http404
+from django.core.urlresolvers import reverse
+
+
+
 import json
 
 # Create your views here.
@@ -34,13 +40,17 @@ def projectDetail(request, project_id):
 
 
 def submitProject(request, project_id):
-	if request.user.is_authenticated():
-		new_submission = Submission(project_id=project_id, student=request.user, files=request['files'], notes=request['note'])
-		new_submission.save()
-		response = {'status' : 1}
+	if request.method == 'POST':
+		if request.user.is_authenticated():
+			project = Project.objects.get(pk=project_id)
+			user = User.objects.get(pk=request.user.id)
+			new_submission = Submission(project=project, student=user, notes=request.POST['note'])
+			new_submission.files = request.FILES['projectzip']
+			new_submission.save()
+			return HttpResponseRedirect(reverse('projects:categories'))
 
-	else:
-		response = {'status' : 0, 'msg' : 'You have to be logged in first'}
+		else:
+			response = {'status' : 0, 'msg' : 'You have to be logged in first'}
 
 
-	return HttpResponse(json.dumps(response), content_type='application/json')
+		return HttpResponse(json.dumps(response), content_type='application/json')

@@ -17,6 +17,9 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from . import views as global_views
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 
 
@@ -29,4 +32,4 @@ urlpatterns = [
     url(r'^users/reset-password-done/$', auth_views.password_reset_done, {'template_name': 'users/password_reset_done.html'}, name="password_reset_done"),
      url(r'^password/reset-password-confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.password_reset_confirm, {'template_name': 'users/password_reset_confirm.html'}, name="password_reset_confirm"),
     url(r'^password/reset-password-complete/$', auth_views.password_reset_complete, {'template_name': 'users/password_reset_complete.html'}, name="password_reset_complete"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -29,7 +29,7 @@ class Project(models.Model):
 
 def review_directory_path(instance, filename):
 		# file will be uploaded to MEDIA_ROOT/<userid>_review_<id>
-		return '{1}_submission_{0}'.format(instance.id, instance.project.user)
+		return '{1}_submission_{0}'.format(instance.project.name, instance.student)
 
 
 class Submission(models.Model):
