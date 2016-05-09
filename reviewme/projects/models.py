@@ -23,29 +23,30 @@ class Project(models.Model):
 	name = models.CharField(max_length=132)
 	description = models.TextField()
 	sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+	cost = models.IntegerField()
+
+
+
+def review_directory_path(instance, filename):
+		# file will be uploaded to MEDIA_ROOT/<userid>_review_<id>
+		return '{1}_submission_{0}'.format(instance.id, instance.project.user)
 
 
 class Submission(models.Model):
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
 	student = models.ForeignKey(User, on_delete=models.CASCADE)
 	submitted_on = models.DateTimeField(auto_now_add=True)
-	returned_on = models.DateTimeField()
-	cost = models.IntegerField()
+	returned_on = models.DateTimeField(null=True)
 	finished = models.BooleanField(default=False)
-
-
-def review_directory_path(instance, filename):
-		# file will be uploaded to MEDIA_ROOT/<userid>_review_<id>
-		return '{1}_review_{0}'.format(instance.id, instance.project.user)
-
-class Review(models.Model):
-	project = models.ForeignKey(Project, on_delete=models.CASCADE)
-	assigned_to = models.ForeignKey(User, on_delete=models.CASCADE)
-	assined_time = models.DateTimeField()
-	finished_time = models.DateTimeField()
-	notes = models.TextField()
-	feedback = models.TextField()
+	assined_time = models.DateTimeField(null=True)
+	finished_time = models.DateTimeField(null=True)
+	notes = models.TextField(null=True)
+	feedback = models.TextField(null=True)
 	files = models.FileField(upload_to=review_directory_path)
+
+
+
+
 
 
 

@@ -57,7 +57,7 @@
               {% elif type == "subcategories" %}
                <a href="{% url 'projects:projects' item.id %}" class="deep-orange-text">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
               {% else %}
-               <a href="{% url 'projects:submit_project' item.id %}" class="deep-orange-text">Start Project<i class="material-icons right">trending_flat</i></a>
+               <a href="{% url 'projects:project_detail' item.id %}" class="deep-orange-text">Start Project<i class="material-icons right">trending_flat</i></a>
               {% endif %}
             </div>
           </div>

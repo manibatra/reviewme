@@ -39,19 +39,20 @@
       </div>
       <div class="row margin-top-100">
         <div class="col s12 m8">
-          <form action="#">
+          <form id="submitForm" action="{% url">
+            {% csrf_token %}
             <div class="file-field input-field">
               <div class="btn">
                 <span>Choose File</span>
-                <input type="file">
+                <input name="files" type="file">
               </div>
               <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
+                <input name="file" class="file-path validate" type="text">
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 m12">
-                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                <textarea id="icon_prefix2" name="note" class="materialize-textarea"></textarea>
                 <label for="icon_prefix2">Message for the reviewer</label>
               </div>
             </div>
@@ -93,6 +94,7 @@
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script src="{% static 'projects/js/projects.js' %}"></script>
   <script type="text/javascript" async>
     (function($){
   $(function(){

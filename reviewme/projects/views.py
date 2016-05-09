@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import Category, SubCategory, Project
+from .models import Category, SubCategory, Project, Submission
 from django.db.models import Count
+import json
 
 # Create your views here.
 def showCategories(request):
@@ -25,8 +26,21 @@ def showProjects(request, subcategory_id):
 	return render(request, 'projects/categories.html', context)
 
 
-def submitProject(request, project_id):
+def projectDetail(request, project_id):
 	context = {}
 	current_project = Project.objects.get(pk=project_id)
 	context['project'] = current_project
-	return render(request, 'projects/submitProject.html', context)
+	return render(request, 'projects/projectdetail.html', context)
+
+
+def submitProject(request, project_id):
+	if request.user.is_authenticated():
+		new_submission = Submission(project_id=project_id, student=request.user, files=request['files'], notes=request['note'])
+		new_submission.save()
+		response = {'status' : 1}
+
+	else:
+		response = {'status' : 0, 'msg' : 'You have to be logged in first'}
+
+
+	return HttpResponse(json.dumps(response), content_type='application/json')
