@@ -23,3 +23,10 @@ def showProjects(request, subcategory_id):
 	context['type'] = 'projects'
 	context['items'] = all_projects
 	return render(request, 'projects/categories.html', context)
+
+
+def submitProject(request, project_id):
+	context = {}
+	current_project = Project.objects.get(pk=project_id)
+	context['project'] = current_project
+	return render(request, 'projects/submitProject.html', context)

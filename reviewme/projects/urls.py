@@ -6,5 +6,6 @@ urlpatterns = [
 	url(r'^categories/$', views.showCategories, name='categories'),
 	url(r'^categories/(?P<category_id>[0-9]+)/$', views.showSubCategories, name='sub_categories'),
 	url(r'^categories/subcategories/(?P<subcategory_id>[0-9]+)/$', views.showProjects, name='projects'),
+	url(r'^categories/projects/(?P<project_id>[0-9]+)/$', views.submitProject, name='submit_project'),
 
 ]

@@ -32,39 +32,25 @@
     </div>
   </nav>
 
-<main>
-  <div class="container margin-top-25">
-    <div class="row left-align">
-        {% if type == "categories" %}
-        <h2 class="thin">Fields of Study</h2>
-        {% elif type == "subcategories" %}
-        <h2 class="thin">Topics</h2>
-        {% else %}
-        <h2 class="thin">Projects</h2>
-        {% endif %}
-    </div>
-    <div class="row margin-top-25">
-        {% for item in items %}
-        <div class="col s12 m4">
-          <div class="card">
-            <div class="card-content white-text category-description">
-              <span class="card-title light-blue-text text-darken-2">{{ item.name }}</span>
-              <p class="light-blue-text">{{ item.description }}</p>
+  <main>
+    <div class="container margin-top-25">
+       <div class="row left-align">
+        <h2 class="thin">{{ project.name }}</h2>
+      </div>
+      <div class="row margin-top-25">
+        <form action="#">
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>File</span>
+              <input type="file">
             </div>
-            <div class="card-action">
-              {% if type == "categories" %}
-               <a href="{% url 'projects:sub_categories' item.id %}" class="deep-orange-text">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
-              {% elif type == "subcategories" %}
-               <a href="{% url 'projects:projects' item.id %}" class="deep-orange-text">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
-              {% else %}
-               <a href="{% url 'projects:submit_project' item.id %}" class="deep-orange-text">Start Project<i class="material-icons right">trending_flat</i></a>
-              {% endif %}
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
             </div>
           </div>
-        </div>
-        {% endfor %}
+        </form>
       </div>
-  </div>
+    </div>
   </main>
 
    <footer class="page-footer transparent">
