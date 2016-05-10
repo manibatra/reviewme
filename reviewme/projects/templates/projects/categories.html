@@ -89,6 +89,7 @@
   </footer>
 
 
+
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
@@ -107,6 +108,12 @@
   });
 
   </script>
+  s{% if messages %}
+      {% for message in messages %}
+      <script>Materialize.toast('{{ message }}', 4000, 'rounded teal')</script>
+      {% endfor %}
+  </ul>
+  {% endif %}
 
   </body>
 </html>

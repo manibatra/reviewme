@@ -47,11 +47,11 @@ def submitProject(request, project_id):
 			new_submission = Submission(project=project, student=user, notes=request.POST['note'])
 			new_submission.files = request.FILES['projectzip']
 			new_submission.save()
-			messages.add_message(request, message.SUCCESS, 'Your project has been submitted for review')
+			messages.add_message(request, messages.SUCCESS, 'Your project has been submitted for review')
 			return HttpResponseRedirect(reverse('projects:categories'))
 
 		else:
-			response = {'status' : 0, 'msg' : 'You have to be logged in first'}
-
+			messages.add_message(request, messages.ERROR, 'You have to be logged in to submit a project.')
+			return HttpResponseRedirect('/content/categories/projects/' + project_id)
 
 		return HttpResponse(json.dumps(response), content_type='application/json')

@@ -110,6 +110,12 @@
   });
 
   </script>
+  s{% if messages %}
+      {% for message in messages %}
+      <script>Materialize.toast('{{ message }}', 4000, 'rounded deep-orange lighten-1')</script>
+      {% endfor %}
+  </ul>
+  {% endif %}
 
   </body>
 </html>
