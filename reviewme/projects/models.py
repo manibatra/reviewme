@@ -25,6 +25,10 @@ class Project(models.Model):
 	sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
 	cost = models.IntegerField()
 
+class Reviewer(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	training_complete = models.BooleanField(default=False)
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
 
 def review_directory_path(instance, filename):

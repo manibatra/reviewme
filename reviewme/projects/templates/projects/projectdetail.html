@@ -111,9 +111,9 @@
   });
 
   </script>
-  s{% if messages %}
+  {% if messages %}
       {% for message in messages %}
-      <script>Materialize.toast('{{ message }}', 4000, 'rounded deep-orange lighten-1')</script>
+      <script>Materialize.toast('{{ message }}', 4000, 'rounded deep-orange lighten-1 flow-text')</script>
       {% endfor %}
   </ul>
   {% endif %}
