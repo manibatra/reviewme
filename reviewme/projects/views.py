@@ -60,3 +60,6 @@ def submitProject(request, project_id):
 			return HttpResponseRedirect('/content/categories/projects/' + project_id)
 
 		return HttpResponse(json.dumps(response), content_type='application/json')
+
+def showReviewerDash(request):
+	return render(request, 'projects/reviewerdash.html')

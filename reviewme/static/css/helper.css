@@ -7,6 +7,10 @@
 	margin-top: 100px;
 }
 
+.margin-top-50 {
+	margin-top: 50px;
+}
+
 /*make footer stick to bottom*/
  body {
     display: flex;
