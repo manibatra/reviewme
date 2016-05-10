@@ -39,6 +39,7 @@ def review_directory_path(instance, filename):
 class Submission(models.Model):
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
 	student = models.ForeignKey(User, on_delete=models.CASCADE)
+	reviewer = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="reviewed_by")
 	submitted_on = models.DateTimeField(auto_now_add=True)
 	returned_on = models.DateTimeField(null=True)
 	finished = models.BooleanField(default=False)
