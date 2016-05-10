@@ -4,7 +4,7 @@ from django.db.models import Count
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect,HttpResponse, Http404
 from django.core.urlresolvers import reverse
-
+from django.contrib import messages
 
 
 import json
@@ -47,6 +47,7 @@ def submitProject(request, project_id):
 			new_submission = Submission(project=project, student=user, notes=request.POST['note'])
 			new_submission.files = request.FILES['projectzip']
 			new_submission.save()
+			messages.add_message(request, message.SUCCESS, 'Your project has been submitted for review')
 			return HttpResponseRedirect(reverse('projects:categories'))
 
 		else:
