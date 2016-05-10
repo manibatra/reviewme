@@ -51,7 +51,7 @@
             </thead>
 
             <tbody>
-              {% for dictionary in answer %}
+              {% for dictionary in available %}
                 <tr>
                   {% for key, value in dictionary.items reversed %}
                 <td>{% if key == 'project__cost' %}${% endif %} {{ value }}</td>

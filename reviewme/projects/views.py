@@ -62,9 +62,12 @@ def submitProject(request, project_id):
 		return HttpResponse(json.dumps(response), content_type='application/json')
 
 def showReviewerDash(request):
-	current_reviewer = User.objects.get(pk=request.user.id)
-	all_eligible_projects = Reviewer.objects.filter(user=current_reviewer).filter(training_complete=True).values_list('project__id', flat=True)
-	projects_available = Submission.objects.filter(project__in=all_eligible_projects).filter(returned_on__isnull=True).values('project__name', 'project__cost').annotate(count=Count('project'))
-	context = {}
-	context['answer'] = projects_available
-	return render(request, 'projects/reviewerdash.html', context)
+	if request.user.is_authenticated:
+		current_reviewer = User.objects.get(pk=request.user.id)
+		all_eligible_projects = Reviewer.objects.filter(user=current_reviewer).filter(training_complete=True).values_list('project__id', flat=True)
+		projects_available = Submission.objects.filter(project__in=all_eligible_projects).filter(reviewer__isnull=True).filter(returned_on__isnull=True).values('project__name', 'project__cost').annotate(count=Count('project'))
+		context = {}
+		context['available'] = projects_available
+		return render(request, 'projects/reviewerdash.html', context)
+	else:
+		raise Http404()
