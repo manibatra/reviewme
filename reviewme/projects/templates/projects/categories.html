@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>ReviewMe</title>
+  <title>Topics</title>
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -23,7 +23,7 @@
       </ul>
     {% else %}
       <ul class="right hide-on-med-and-down">
-        <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
+        <li><a  class="btn deep-orange" href="{% url 'users:login_user' %}">Sign In</a></li>
       </ul>
     {% endif %}
       <ul id="nav-mobile" class="side-nav">
@@ -32,62 +32,41 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <h1 class="header center deep-orange-text">ReviewMe</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">A place to learn and get some real human feedback for your projects.</h5>
-      </div>
-      <div class="row center margin-top-100  ">
-        <a href="{% url 'projects:categories' %}" id="download-button" class="btn-large waves-effect waves-light deep-orange z-depth-3">Get Started</a>
-      </div>
-      <br><br>
 
-    </div>
-  </div>
-
-
+<main>
   <div class="container margin-top-25">
-    <div class="section">
-
-      <div class="row">
+    <div class="row left-align">
+        {% if type == "categories" %}
+        <h2 class="thin">Fields of Study</h2>
+        {% elif type == "subcategories" %}
+        <h2 class="thin">Topics</h2>
+        {% else %}
+        <h2 class="thin">Projects</h2>
+        {% endif %}
+    </div>
+    <div class="row margin-top-25">
+        {% for item in items %}
         <div class="col s12 m4">
-          <div class="icon-block center-align">
-            <h2 class="center light-blue-text"><i class="material-icons large">description</i></h2>
-            <h5 class="center">Variety Of Projects</h5>
-
-            <p class="light flow-text">Complete one of our projects. We have a detailed and clearly defined specs that help you get better
-            	as you build.</p>
+          <div class="card">
+            <div class="card-content white-text category-description">
+              <span class="card-title light-blue-text text-darken-2">{{ item.name }}</span>
+              <p class="light-blue-text">{{ item.description }}</p>
+            </div>
+            <div class="card-action">
+              {% if type == "categories" %}
+               <a href="{% url 'projects:sub_categories' item.id %}" class="deep-orange-text">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
+              {% elif type == "subcategories" %}
+               <a href="{% url 'projects:projects' item.id %}" class="deep-orange-text">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
+              {% else %}
+               <a href="{% url 'projects:project_detail' item.id %}" class="deep-orange-text">Start Project<i class="material-icons right">trending_flat</i></a>
+              {% endif %}
+            </div>
           </div>
         </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block center-align">
-            <h2 class="center light-blue-text"><i class="material-icons large">cloud_upload</i></h2>
-            <h5 class="center">Submit Your Project</h5>
-
-            <p class="light flow-text">After finishing your project and making sure that you meet all the requirements listed in the spec all you have to do is submit your project, sit back and relax.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block center-align">
-            <h2 class="center light-blue-text"><i class="material-icons large">rate_review</i></h2>
-            <h5 class="center">Personalised Human Feedback</h5>
-
-            <p class="light flow-text">One of our vetted reviewers will check your project for you. You will get feedback from other developers who have been through the learning process.</p>
-          </div>
-        </div>
+        {% endfor %}
       </div>
-
-    </div>
-    <br><br>
-
-    <div class="section">
-
-    </div>
   </div>
+  </main>
 
    <footer class="page-footer transparent">
     <div class="footer-copyright deep-orange lighten-3">
@@ -111,6 +90,7 @@
   </footer>
 
 
+
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
@@ -128,7 +108,20 @@
     Materialize.updateTextFields();
   });
 
+   $(".dropdown-button").dropdown();
+   $("#beReviewer").on('click', function(e) {
+      $('#displayThis').text('Reviewer Dashboard')
+   })
+   $("#beStudent").on('click', function(e) {
+      $('#displayThis').text('Student Dashboard')
+   })
   </script>
+  s{% if messages %}
+      {% for message in messages %}
+      <script>Materialize.toast('{{ message }}', 4000, 'rounded teal')</script>
+      {% endfor %}
+  </ul>
+  {% endif %}
 
   </body>
 </html>
