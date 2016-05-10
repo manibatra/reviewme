@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect,HttpResponse, Http404
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+import datetime
+from django.utils.timezone import utc
 
 
 import json
@@ -65,9 +67,25 @@ def showReviewerDash(request):
 	if request.user.is_authenticated:
 		current_reviewer = User.objects.get(pk=request.user.id)
 		all_eligible_projects = Reviewer.objects.filter(user=current_reviewer).filter(training_complete=True).values_list('project__id', flat=True)
-		projects_available = Submission.objects.filter(project__in=all_eligible_projects).filter(reviewer__isnull=True).filter(returned_on__isnull=True).values('project__name', 'project__cost').annotate(count=Count('project'))
+		projects_available = Submission.objects.filter(project__in=all_eligible_projects).filter(reviewer__isnull=True).filter(returned_on__isnull=
+			True).values('project__name', 'project__cost').annotate(count=Count('project'))
 		context = {}
 		context['available'] = projects_available
+		projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assined_time')
+		for dictionary in projects_assigned:
+			dictionary['link'] = dictionary['id']
+			dictionary['time_remaining'] = time_remaining(dictionary['assined_time'])
+			dictionary['name'] = dictionary['project__name']
+			dictionary.pop('id', None)
+			dictionary.pop('project__name', None)
+			dictionary.pop('assined_time', None)
+
+		context['assigned'] = projects_assigned
 		return render(request, 'projects/reviewerdash.html', context)
 	else:
 		raise Http404()
+
+def time_remaining(assined_time):
+	dt = datetime.datetime.utcnow().replace(tzinfo=utc)  - assined_time
+	hours = dt.seconds/60/60
+	return 2 - hours

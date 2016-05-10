@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class Role(models.Model):
 	user = models.OneToOneField(User, on_delete = models.CASCADE)
@@ -54,7 +55,7 @@ def review_directory_path(instance, filename):
 class Submission(models.Model):
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
 	student = models.ForeignKey(User, on_delete=models.CASCADE)
-	reviewer = models.ForeignKey(User, on_delete=models.CASCADE,blank=True, null=True, related_name="reviewed_by")
+	reviewer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="reviewed_by")
 	submitted_on = models.DateTimeField(auto_now_add=True)
 	returned_on = models.DateTimeField(null=True, blank=True)
 	finished = models.BooleanField(default=False)
@@ -66,7 +67,10 @@ class Submission(models.Model):
 
 
 	def __unicode__(self):
-		return self.student.get_username() + "  -  " + self.project.name
+		if self.reviewer:
+			return self.student.get_username() + "  -  " + self.project.name +  "  -   " + self.reviewer.get_username()
+		else:
+			return self.student.get_username() + "  -  " + self.project.name
 
 
 

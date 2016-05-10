@@ -81,16 +81,16 @@
             </thead>
 
             <tbody>
+              {% for dictionary in assigned %}
               <tr>
-                <td>Build a Portfolio</td>
-                <td>2 hrs</td>
-                <td><a class="waves-effect waves-light btn">Resume<i class="material-icons right">redo</i></a></td>
+                  {% for key, value in dictionary.items reversed %}
+                  {% if key == 'name' %}<td>{{ value }}</td>{% endif %}
+                  {% if key == 'time_remaining' %}<td>{{ value }} hr</td>{% endif %}
+                  {% if key == 'link' %}<td><a href="/content/submission/{{value}}" class="waves-effect waves-light btn">Resume<i class="material-icons right">redo</i></a></td>{% endif %}
+                  {% endfor %}
               </tr>
-              <tr>
-                <td>XYZ</td>
-                <td>3 hrs</td>
-                <td><a class="waves-effect waves-light btn">Resume<i class="material-icons right">redo</i></a></td>
-              </tr>
+              {% endfor %}
+
             </tbody>
           </table>
 
