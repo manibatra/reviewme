@@ -9,15 +9,23 @@ class Role(models.Model):
 	student = models.BooleanField()
 	reviewer = models.BooleanField()
 
+	def __unicode__(self):
+		return self.user.get_username()
+
 class Category(models.Model):
 	name = models.CharField(max_length=132)
 	description = models.TextField()
 
+	def __unicode__(self):
+		return self.name
 
 class SubCategory(models.Model):
 	name = models.CharField(max_length=132)
 	description = models.TextField()
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+	def __unicode__(self):
+		return self.name + "  (" + self.category.name + ")"
 
 class Project(models.Model):
 	name = models.CharField(max_length=132)
@@ -25,10 +33,17 @@ class Project(models.Model):
 	sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
 	cost = models.IntegerField()
 
+	def __unicode__(self):
+		return self.name + "  (" + self.sub_category.name + ")    -     " + str(self.cost)
+
 class Reviewer(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	training_complete = models.BooleanField(default=False)
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+
+	def __unicode__(self):
+		return self.user.get_username() + "    -    " + self.project.name
 
 
 def review_directory_path(instance, filename):
@@ -48,6 +63,10 @@ class Submission(models.Model):
 	notes = models.TextField(null=True)
 	feedback = models.TextField(null=True)
 	files = models.FileField(upload_to=review_directory_path)
+
+
+	def __unicode__(self):
+		return self.student.get_username() + "  -  " + self.project.name
 
 
 
