@@ -45,7 +45,12 @@ def submitProject(request, project_id):
 			project = Project.objects.get(pk=project_id)
 			user = User.objects.get(pk=request.user.id)
 			new_submission = Submission(project=project, student=user, notes=request.POST['note'])
-			new_submission.files = request.FILES['projectzip']
+			try:
+				new_submission.files = request.FILES['projectzip']
+			except:
+				messages.add_message(request, messages.ERROR, 'Oops you did not submit any file')
+				return HttpResponseRedirect('/content/categories/projects/' + project_id)
+
 			new_submission.save()
 			messages.add_message(request, messages.SUCCESS, 'Your project has been submitted for review')
 			return HttpResponseRedirect(reverse('projects:categories'))
