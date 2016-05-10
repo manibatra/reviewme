@@ -71,21 +71,21 @@ def showReviewerDash(request):
 			True).values('project__name', 'project__cost').annotate(count=Count('project'))
 		context = {}
 		context['available'] = projects_available
-		projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assined_time')
+		projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assigned_time')
 		for dictionary in projects_assigned:
 			dictionary['link'] = dictionary['id']
-			dictionary['time_remaining'] = time_remaining(dictionary['assined_time'])
+			dictionary['time_remaining'] = time_remaining(dictionary['assigned_time'])
 			dictionary['name'] = dictionary['project__name']
 			dictionary.pop('id', None)
 			dictionary.pop('project__name', None)
-			dictionary.pop('assined_time', None)
+			dictionary.pop('assigned_time', None)
 
 		context['assigned'] = projects_assigned
 		return render(request, 'projects/reviewerdash.html', context)
 	else:
 		raise Http404()
 
-def time_remaining(assined_time):
-	dt = datetime.datetime.utcnow().replace(tzinfo=utc)  - assined_time
+def time_remaining(assigned_time):
+	dt = datetime.datetime.utcnow().replace(tzinfo=utc)  - assigned_time
 	hours = dt.seconds/60/60
 	return 2 - hours

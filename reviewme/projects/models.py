@@ -59,7 +59,7 @@ class Submission(models.Model):
 	submitted_on = models.DateTimeField(auto_now_add=True)
 	returned_on = models.DateTimeField(null=True, blank=True)
 	finished = models.BooleanField(default=False)
-	assined_time = models.DateTimeField(null=True, blank=True)
+	assigned_time = models.DateTimeField(null=True, blank=True)
 	finished_time = models.DateTimeField(null=True, blank=True)
 	notes = models.TextField(null=True, blank=True)
 	feedback = models.TextField(null=True, blank=True)
