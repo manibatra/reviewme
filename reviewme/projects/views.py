@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect,HttpResponse, Http404
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 import datetime
+from datetime import timedelta
 from django.utils.timezone import utc
 import json
 
@@ -65,19 +66,33 @@ def submitProject(request, project_id):
 
 def showReviewerDash(request):
 	if request.user.is_authenticated:
+
 		current_reviewer = User.objects.get(pk=request.user.id)
+		#list all the availablel projects that the reviewer is eligible to review
 		all_eligible_projects = Reviewer.objects.filter(user=current_reviewer).filter(training_complete=True).values_list('project__id', flat=True)
 		projects_available = Submission.objects.filter(project__in=all_eligible_projects).filter(reviewer__isnull=True).filter(returned_on__isnull=
 			True).values('project__name', 'project__id', 'project__cost').annotate(count=Count('project'))
 
 		context = {}
-		#list all the projects available to review
 		context['available'] = projects_available
-		projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assigned_time', 'project__cost')
+
+		#list all the submissions available to review
+
+		#fist check if submission has been sitting for more than time limit
+		#setting timedelta as 5 for a time cap of 4 hrs to review
+		lapsed_submissions = Submission.objects.filter(reviewer=current_reviewer).filter(assigned_time__lt=
+								(datetime.datetime.utcnow().replace(tzinfo=utc))-timedelta(hours=3, minutes=59))
+		for submission in lapsed_submissions:
+			submission.reviewer = None
+			submission.assigned_time = None
+			submission.save()
+
+
+		#list all the submissions still eligible
+		projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assigned_time',
+							'project__cost')
 		for dictionary in projects_assigned:
 			time_left = time_remaining(dictionary['assigned_time'])
-			if time_left <= 0:
-				time_left = 0
 			dictionary['time_remaining'] = time_left
 
 		context['assigned'] = projects_assigned
@@ -95,13 +110,13 @@ def assignSubmission(request):
 	if request.method == 'POST':
 		if request.user.is_authenticated:
 			current_reviewer = User.objects.get(pk=request.user.id)
-			#checking if two projects have been assigned to the reivewer
+			#checking if two submissions have been assigned to the reivewer
 			currently_assigned = Submission.objects.filter(reviewer=current_reviewer)
 			if len(currently_assigned) >= 2:
 				messages.add_message(request, messages.ERROR, 'Assignment limit reached')
 				return HttpResponseRedirect(reverse('projects:reviewer_dashboard'))
 			else:
-				#less than two projects assigned, assign the project
+				#less than two submissions assigned, assign the project
 				current_submissions = Submission.objects.filter(project__id=request.POST['project_id']).filter(reviewer__isnull=True).order_by('submitted_on')
 				submission_to_assign = current_submissions[0]
 				submission_to_assign.assigned_time = datetime.datetime.utcnow().replace(tzinfo=utc)
