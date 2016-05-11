@@ -56,8 +56,15 @@
                   <td>{{ dictionary.project__name }}</td>
                   <td>$ {{ dictionary.project__cost}}</td>
                   <td>{{ dictionary.count }}</td>
-                  <td><a href="/content/assign/{{dictionarly.project__id}}/" class="waves-effect waves-light btn">Start
-                            <i class="material-icons right">trending_flat</i></a></td>
+                  <td>
+                      <form action="{% url 'projects:assign_submission' %}" method="post">
+                      {% csrf_token %}
+                      <input type="hidden" name="project_id" value="{{ dictionary.project__id }}">
+                      <button class="btn waves-effect waves-light" type="submit" name="action">Start
+                          <i class="material-icons right">trending_flat</i>
+                       </button>
+                      </form>
+                  </td>
               </tr>
               {% endfor %}
             </tbody>
@@ -77,6 +84,7 @@
             <thead>
               <tr>
                   <th data-field="id">Project Name</th>
+                  <th data-field="name">Review Price</th>
                   <th data-field="id">Time Remaining</th>
               </tr>
             </thead>
@@ -85,7 +93,8 @@
               {% for dictionary in assigned %}
                 <tr>
                   <td>{{ dictionary.project__name }}</td>
-                  <td>{{ dictionary.time_remaining}}</td>
+                  <td>$ {{ dictionary.project__cost}}</td>
+                  <td>{{ dictionary.time_remaining}} hr{{ dictionary.time_remaining | pluralize }}</td>
                   <td><a href="/content/submission/{{dictionary.id}}/" class="waves-effect waves-light btn">Resume
                         <i class="material-icons right">redo</i></a></td>
                 </tr>
@@ -142,7 +151,11 @@
   </script>
   {% if messages %}
       {% for message in messages %}
-      <script>Materialize.toast('{{ message }}', 4000, 'rounded teal')</script>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <script>Materialize.toast('{{ message }}', 4000, 'rounded teal')</script>
+        {% else %}
+        <script>Materialize.toast('{{ message }}', 4000, 'rounded deep-orange')</script>
+        {% endif %}
       {% endfor %}
   </ul>
   {% endif %}

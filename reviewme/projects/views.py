@@ -71,10 +71,14 @@ def showReviewerDash(request):
 			True).values('project__name', 'project__id', 'project__cost').annotate(count=Count('project'))
 
 		context = {}
+		#list all the projects available to review
 		context['available'] = projects_available
-		projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assigned_time')
+		projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assigned_time', 'project__cost')
 		for dictionary in projects_assigned:
-			dictionary['time_remaining'] = time_remaining(dictionary['assigned_time'])
+			time_left = time_remaining(dictionary['assigned_time'])
+			if time_left <= 0:
+				time_left = 0
+			dictionary['time_remaining'] = time_left
 
 		context['assigned'] = projects_assigned
 		return render(request, 'projects/reviewerdash.html', context)
@@ -84,23 +88,27 @@ def showReviewerDash(request):
 def time_remaining(assigned_time):
 	dt = datetime.datetime.utcnow().replace(tzinfo=utc)  - assigned_time
 	hours = dt.seconds/60/60
-	return 2 - hours
+	return 4 - hours
 
 
-def assignSubmission(request, submission_id):
+def assignSubmission(request):
 	if request.method == 'POST':
 		if request.user.is_authenticated:
 			current_reviewer = User.objects.get(pk=request.user.id)
+			#checking if two projects have been assigned to the reivewer
 			currently_assigned = Submission.objects.filter(reviewer=current_reviewer)
 			if len(currently_assigned) >= 2:
 				messages.add_message(request, messages.ERROR, 'Assignment limit reached')
-				return HttpResponseRedirect(reverse('projects:reviewer_dahsboard'))
+				return HttpResponseRedirect(reverse('projects:reviewer_dashboard'))
 			else:
-				current_submission = Submission.objects.get(pk=submission_id)
-				currently_submission.assigned_time = datetime.datetime.utcnow().replace(tzinfo=utc)
-				current_submission.reviewer = current_reviewer
+				#less than two projects assigned, assign the project
+				current_submissions = Submission.objects.filter(project__id=request.POST['project_id']).filter(reviewer__isnull=True).order_by('submitted_on')
+				submission_to_assign = current_submissions[0]
+				submission_to_assign.assigned_time = datetime.datetime.utcnow().replace(tzinfo=utc)
+				submission_to_assign.reviewer = current_reviewer
+				submission_to_assign.save()
 				messages.add_message(request, messages.SUCCESS, 'You have been assigned the submission')
-				return HttpResponseRedirect(reverse('projects:reviewer_dahsboard'))
+				return HttpResponseRedirect(reverse('projects:reviewer_dashboard'))
 		else:
 			return HttpResponseRedirect(reverse('users:login'))
 
