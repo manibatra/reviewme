@@ -52,12 +52,13 @@
 
             <tbody>
               {% for dictionary in available %}
-                <tr>
-                  {% for key, value in dictionary.items reversed %}
-                <td>{% if key == 'project__cost' %}${% endif %} {{ value }}</td>
-                {% endfor %}
-
-                <td><a class="waves-effect waves-light btn">Start<i class="material-icons right">trending_flat</i></a></td>
+              <tr>
+                  <td>{{ dictionary.project__name }}</td>
+                  <td>$ {{ dictionary.project__cost}}</td>
+                  <td>{{ dictionary.count }}</td>
+                  <td><a href="/content/assign/{{dictionarly.project__id}}/" class="waves-effect waves-light btn">Start
+                            <i class="material-icons right">trending_flat</i></a></td>
+              </tr>
               {% endfor %}
             </tbody>
           </table>
@@ -82,13 +83,12 @@
 
             <tbody>
               {% for dictionary in assigned %}
-              <tr>
-                  {% for key, value in dictionary.items reversed %}
-                  {% if key == 'name' %}<td>{{ value }}</td>{% endif %}
-                  {% if key == 'time_remaining' %}<td>{{ value }} hr</td>{% endif %}
-                  {% if key == 'link' %}<td><a href="/content/submission/{{value}}" class="waves-effect waves-light btn">Resume<i class="material-icons right">redo</i></a></td>{% endif %}
-                  {% endfor %}
-              </tr>
+                <tr>
+                  <td>{{ dictionary.project__name }}</td>
+                  <td>{{ dictionary.time_remaining}}</td>
+                  <td><a href="/content/submission/{{dictionary.id}}/" class="waves-effect waves-light btn">Resume
+                        <i class="material-icons right">redo</i></a></td>
+                </tr>
               {% endfor %}
 
             </tbody>
