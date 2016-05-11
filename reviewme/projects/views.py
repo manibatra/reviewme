@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Category, SubCategory, Project, Submission, Reviewer
+from .models import Category, SubCategory, Project, Submission, Reviewer, Role
 from django.db.models import Count
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect,HttpResponse, Http404
@@ -67,38 +67,52 @@ def submitProject(request, project_id):
 def showReviewerDash(request):
 	if request.user.is_authenticated:
 
+
 		current_reviewer = User.objects.get(pk=request.user.id)
-		#list all the availablel projects that the reviewer is eligible to review
-		all_eligible_projects = Reviewer.objects.filter(user=current_reviewer).filter(training_complete=True).values_list('project__id', flat=True)
-		projects_available = Submission.objects.filter(project__in=all_eligible_projects).filter(reviewer__isnull=True).filter(returned_on__isnull=
-			True).values('project__name', 'project__id', 'project__cost').annotate(count=Count('project'))
 
-		context = {}
-		context['available'] = projects_available
+		#did the user applied to be a reivewer
+		current_role = Role.objects.get(user=current_reviewer)
 
-		#list all the submissions available to review
+		if current_role.reviewer:
+			#list all the availablel projects that the reviewer is eligible to review
+			all_eligible_projects = Reviewer.objects.filter(user=current_reviewer).filter(training_complete=True).values_list('project__id', flat=True)
+			projects_available = Submission.objects.filter(project__in=all_eligible_projects).filter(reviewer__isnull=True).filter(returned_on__isnull=
+				True).values('project__name', 'project__id', 'project__cost').annotate(count=Count('project'))
 
-		#fist check if submission has been sitting for more than time limit
-		#setting timedelta as 5 for a time cap of 4 hrs to review
-		lapsed_submissions = Submission.objects.filter(reviewer=current_reviewer).filter(assigned_time__lt=
-								(datetime.datetime.utcnow().replace(tzinfo=utc))-timedelta(hours=3, minutes=59))
-		for submission in lapsed_submissions:
-			submission.reviewer = None
-			submission.assigned_time = None
-			submission.save()
+			context = {}
+			context['available'] = projects_available
+
+			#list all the submissions available to review
+
+			#fist check if submission has been sitting for more than time limit
+			#setting timedelta as 5 for a time cap of 4 hrs to review
+			lapsed_submissions = Submission.objects.filter(reviewer=current_reviewer).filter(assigned_time__lt=
+									(datetime.datetime.utcnow().replace(tzinfo=utc))-timedelta(hours=3, minutes=59))
+			for submission in lapsed_submissions:
+				submission.reviewer = None
+				submission.assigned_time = None
+				submission.save()
 
 
-		#list all the submissions still eligible
-		projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assigned_time',
-							'project__cost')
-		for dictionary in projects_assigned:
-			time_left = time_remaining(dictionary['assigned_time'])
-			dictionary['time_remaining'] = time_left
+			#list all the submissions still eligible
+			projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assigned_time',
+								'project__cost')
+			for dictionary in projects_assigned:
+				time_left = time_remaining(dictionary['assigned_time'])
+				dictionary['time_remaining'] = time_left
 
-		context['assigned'] = projects_assigned
-		return render(request, 'projects/reviewerdash.html', context)
+			context['assigned'] = projects_assigned
+			return render(request, 'projects/reviewerdash.html', context)
+		else:
+			context = {}
+			context['heading'] = "Become a reviewer"
+			context['message'] = "You have not yet applied to be a reviewer. You can do so by clicking the button below."
+			context['button'] = True
+			context['button_message'] = "Apply"
+			context['button_url'] = "/content/categories"
+			return render(request, 'message.html', context)
 	else:
-		raise Http404()
+		raise HttpResponseRedirect(reverse('users:login'))
 
 def time_remaining(assigned_time):
 	dt = datetime.datetime.utcnow().replace(tzinfo=utc)  - assigned_time
