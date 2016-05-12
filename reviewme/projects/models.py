@@ -47,9 +47,13 @@ class Reviewer(models.Model):
 		return self.user.get_username() + "    -    " + self.project.name
 
 
-def review_directory_path(instance, filename):
+def submission_directory_path(instance, filename):
 		# file will be uploaded to MEDIA_ROOT/<userid>_review_<id>
 		return '{1}_submission_{0}'.format(instance.project.name, instance.student)
+
+def review_directory_path(instance, filename):
+		# file will be uploaded to MEDIA_ROOT/<userid>_review_<id>
+		return '{1}_review_{0}'.format(instance.project.name, instance.student)
 
 
 class Submission(models.Model):
@@ -60,10 +64,11 @@ class Submission(models.Model):
 	returned_on = models.DateTimeField(null=True, blank=True)
 	finished = models.BooleanField(default=False)
 	assigned_time = models.DateTimeField(null=True, blank=True)
-	finished_time = models.DateTimeField(null=True, blank=True)
 	notes = models.TextField(null=True, blank=True)
 	feedback = models.TextField(null=True, blank=True)
-	files = models.FileField(upload_to=review_directory_path)
+	submitted_files = models.FileField(upload_to=submission_directory_path)
+	review_files = models.FileField(upload_to=review_directory_path, blank=True, null=True)
+
 
 
 	def __unicode__(self):

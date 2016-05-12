@@ -47,7 +47,7 @@ def submitProject(request, project_id):
 			user = User.objects.get(pk=request.user.id)
 			new_submission = Submission(project=project, student=user, notes=request.POST['note'])
 			try:
-				new_submission.files = request.FILES['projectzip']
+				new_submission.submitted_files = request.FILES['projectzip']
 			except:
 				messages.add_message(request, messages.ERROR, 'Oops you did not submit any file')
 				return HttpResponseRedirect('/content/categories/projects/' + project_id)
@@ -96,7 +96,7 @@ def showReviewerDash(request):
 
 			#list all the submissions still eligible
 			projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assigned_time',
-								'project__cost')
+								'project__cost').filter(finished=False)
 			for dictionary in projects_assigned:
 				time_left = time_remaining(dictionary['assigned_time'])
 				dictionary['time_remaining'] = time_left
@@ -124,8 +124,8 @@ def assignSubmission(request):
 	if request.method == 'POST':
 		if request.user.is_authenticated():
 			current_reviewer = User.objects.get(pk=request.user.id)
-			#checking if two submissions have been assigned to the reivewer
-			currently_assigned = Submission.objects.filter(reviewer=current_reviewer)
+			#checking if two submissions have been assigned to the reivewer and not finished
+			currently_assigned = Submission.objects.filter(reviewer=current_reviewer).filter(finished=False)
 			if len(currently_assigned) >= 2:
 				messages.add_message(request, messages.ERROR, 'Assignment limit reached')
 				return HttpResponseRedirect(reverse('projects:reviewer_dashboard'))
@@ -163,6 +163,22 @@ def showSubmission(request, submission_id):
 
 #method to submit review
 def submitReview(request, submission_id):
+	if request.method == 'POST':
+		if request.user.is_authenticated():
+			current_submission = Submission.objects.get(pk=submission_id)
+			try:
+				current_submission.review_files = request.FILES['projectzip']
+			except:
+				messages.add_message(request, messages.ERROR, 'Oops you did not submit any file')
+				return HttpResponseRedirect('/content/submission/' + submission_id)
+			current_submission.finished = True
+			current_submission.returned_on = datetime.datetime.utcnow().replace(tzinfo=utc)
+			current_submission.save()
+			messages.add_message(request, messages.SUCCESS, 'Your review has been submitted.')
+			return HttpResponseRedirect(reverse('projects:reviewer_dashboard'))
+		else:
+			messages.add_message(request, messages.ERROR, 'You have to be logged in to submit a review.')
+			return HttpResponseRedirect(reverse('projects:reviewer_dashboard'))
 	raise Http404()
 
 
