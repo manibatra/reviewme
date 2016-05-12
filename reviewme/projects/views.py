@@ -65,7 +65,7 @@ def submitProject(request, project_id):
 
 
 def showReviewerDash(request):
-	if request.user.is_authenticated:
+	if request.user.is_authenticated():
 
 
 		current_reviewer = User.objects.get(pk=request.user.id)
@@ -122,7 +122,7 @@ def time_remaining(assigned_time):
 
 def assignSubmission(request):
 	if request.method == 'POST':
-		if request.user.is_authenticated:
+		if request.user.is_authenticated():
 			current_reviewer = User.objects.get(pk=request.user.id)
 			#checking if two submissions have been assigned to the reivewer
 			currently_assigned = Submission.objects.filter(reviewer=current_reviewer)
@@ -143,3 +143,26 @@ def assignSubmission(request):
 
 	else:
 		raise Http404()
+
+#method to show the submission page to the reviewer
+def showSubmission(request, submission_id):
+
+	if request.user.is_authenticated():
+		current_user = User.objects.get(pk=request.user.id)
+		current_user_role = Role.objects.get(user=current_user)
+		if current_user_role.reviewer:
+			current_submission = Submission.objects.get(id=submission_id, reviewer=current_user);
+			context = {}
+			context['submission'] = current_submission
+			return render(request, 'projects/submission.html', context)
+		else:
+			raise Http404()
+	else:
+		raise Http404()
+
+
+#method to submit review
+def submitReview(request, submission_id):
+	raise Http404()
+
+
