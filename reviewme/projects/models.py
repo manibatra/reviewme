@@ -62,7 +62,7 @@ class Submission(models.Model):
 	reviewer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="reviewed_by")
 	submitted_on = models.DateTimeField(auto_now_add=True)
 	returned_on = models.DateTimeField(null=True, blank=True)
-	finished = models.BooleanField(default=False)
+	finished = models.BooleanField(default=False) #to be marked finished only when the whole project is complete
 	assigned_time = models.DateTimeField(null=True, blank=True)
 	notes = models.TextField(null=True, blank=True)
 	feedback = models.TextField(null=True, blank=True)

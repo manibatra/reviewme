@@ -86,7 +86,7 @@ def showReviewerDash(request):
 
 			#fist check if submission has been sitting for more than time limit
 			#setting timedelta as 5 for a time cap of 4 hrs to review
-			lapsed_submissions = Submission.objects.filter(reviewer=current_reviewer).filter(assigned_time__lt=
+			lapsed_submissions = Submission.objects.filter(finished=False).filter(reviewer=current_reviewer).filter(assigned_time__lt=
 									(datetime.datetime.utcnow().replace(tzinfo=utc))-timedelta(hours=3, minutes=59))
 			for submission in lapsed_submissions:
 				submission.reviewer = None
@@ -96,7 +96,7 @@ def showReviewerDash(request):
 
 			#list all the submissions still eligible
 			projects_assigned = Submission.objects.filter(reviewer=current_reviewer).values('project__name', 'id', 'assigned_time',
-								'project__cost').filter(finished=False)
+								'project__cost').filter(returned_on__isnull=True)
 			for dictionary in projects_assigned:
 				time_left = time_remaining(dictionary['assigned_time'])
 				dictionary['time_remaining'] = time_left
