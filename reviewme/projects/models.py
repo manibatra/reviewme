@@ -72,7 +72,9 @@ class Submission(models.Model):
 
 
 	def __unicode__(self):
-		if self.reviewer:
+		if self.reviewer and self.finished:
+			return self.student.get_username() + "  -  " + self.project.name +  "  -   " + self.reviewer.get_username() + "  -  finished"
+		elif self.reviewer:
 			return self.student.get_username() + "  -  " + self.project.name +  "  -   " + self.reviewer.get_username()
 		else:
 			return self.student.get_username() + "  -  " + self.project.name
