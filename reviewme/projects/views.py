@@ -125,7 +125,7 @@ def assignSubmission(request):
 		if request.user.is_authenticated():
 			current_reviewer = User.objects.get(pk=request.user.id)
 			#checking if two submissions have been assigned to the reivewer and not finished
-			currently_assigned = Submission.objects.filter(reviewer=current_reviewer).filter(finished=False)
+			currently_assigned = Submission.objects.filter(reviewer=current_reviewer).filter(returned_on__isnull=True)
 			if len(currently_assigned) >= 2:
 				messages.add_message(request, messages.ERROR, 'Assignment limit reached')
 				return HttpResponseRedirect(reverse('projects:reviewer_dashboard'))
@@ -172,7 +172,7 @@ def submitReview(request, submission_id):
 				messages.add_message(request, messages.ERROR, 'Oops you did not submit any file')
 				return HttpResponseRedirect('/content/submission/' + submission_id)
 			current_submission.feedback = request.POST['feedback']
-			current_submission.finished = True
+			current_submission.finished = True #get the value from post
 			current_submission.returned_on = datetime.datetime.utcnow().replace(tzinfo=utc)
 			current_submission.save()
 			messages.add_message(request, messages.SUCCESS, 'Your review has been submitted.')
