@@ -172,7 +172,10 @@ def submitReview(request, submission_id):
 				messages.add_message(request, messages.ERROR, 'Oops you did not submit any file')
 				return HttpResponseRedirect('/content/submission/' + submission_id)
 			current_submission.feedback = request.POST['feedback']
-			current_submission.finished = True #get the value from post
+			if 'finished' in request.POST:
+				current_submission.finished = True
+			else:
+				current_submission.finished = False #get the value from post
 			current_submission.returned_on = datetime.datetime.utcnow().replace(tzinfo=utc)
 			current_submission.save()
 			messages.add_message(request, messages.SUCCESS, 'Your review has been submitted.')

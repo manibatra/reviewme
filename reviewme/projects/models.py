@@ -74,8 +74,9 @@ class Submission(models.Model):
 	def __unicode__(self):
 		if self.reviewer and self.finished:
 			return self.student.get_username() + "  -  " + self.project.name +  "  -   " + self.reviewer.get_username() + "  -  finished"
-		elif self.reviewer:
-			return self.student.get_username() + "  -  " + self.project.name +  "  -   " + self.reviewer.get_username()
+		elif self.reviewer and self.returned_on:
+			return self.student.get_username() + "  -  " + self.project.name +  "  -   " + self.reviewer.get_username() + "  -  not finished"
+
 		else:
 			return self.student.get_username() + "  -  " + self.project.name
 
