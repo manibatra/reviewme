@@ -54,7 +54,15 @@
               <tr>
                   <td>{{ dictionary.project__name }}</td>
                   <td>Resubmission Required</td>
-                  <td><a href="/content/submission/{{dictionary.id}}/" class="waves-effect waves-light btn">Resubmit
+                  <td><a href="/content/categories/projects/{{dictionary.project__id}}/" class="waves-effect waves-light btn">Redo
+                        <i class="material-icons right">redo</i></a></td>
+              </tr>
+              {% endfor %}
+               {% for dictionary in awaiting_projects %}
+              <tr>
+                  <td>{{ dictionary.project.name }}</td>
+                  <td>Awaiting Review</td>
+                  <td><a href="/content/categories/projects/" class="waves-effect waves-light btn">View
                         <i class="material-icons right">redo</i></a></td>
               </tr>
               {% endfor %}

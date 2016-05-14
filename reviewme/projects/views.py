@@ -195,6 +195,8 @@ def showStudentDash(request):
 		context['finished_projects'] = finished_projects
 		resubmission_required = Submission.objects.filter(student=current_user).filter(returned_on__isnull=False).filter(finished=False).values('project__name', 'project__id').annotate(count=Count('project', distinct=True))
 		context['resubmit_projects'] = resubmission_required
+		awaiting_projects = Submission.objects.filter(student=current_user).filter(reviewer__isnull=True)
+		context['awaiting_projects'] = awaiting_projects
 		return render(request, "projects/studentdash.html", context)
 	else:
 		return HttpResponseRedirect(reverse('users:login'))
