@@ -58,7 +58,15 @@
               {% elif type == "subcategories" %}
                <a href="{% url 'projects:projects' item.id %}" class="deep-orange-text">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
               {% else %}
-               <a href="{% url 'projects:project_detail' item.id %}" class="deep-orange-text">Start Project<i class="material-icons right">trending_flat</i></a>
+                  {% if item.status == "Yes" %}
+                 <a href="{% url 'projects:project_detail' item.id %}" class="teal-text">Finished Project<i class="material-icons right">beenhere</i></a>
+                  {% elif item.status == "Wait" %}
+                  <a href="{% url 'projects:project_detail' item.id %}" class="amber-text">Awaiting Review<i class="material-icons right">timer</i></a>
+                  {% elif item.status == "Redo" %}
+                  <a href="{% url 'projects:project_detail' item.id %}" class="red-text">Resubmit<i class="material-icons right">assignment_late</i></a>
+                  {% else %}
+                  <a href="{% url 'projects:project_detail' item.id %}" class="deep-orange-text">Start<i class="material-icons right">trending_flat</i></a>
+                  {% endif %}
               {% endif %}
             </div>
           </div>

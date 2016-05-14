@@ -30,6 +30,27 @@ def showProjects(request, subcategory_id):
 	all_projects = Project.objects.filter(sub_category=subcategory_id)
 	context['type'] = 'projects'
 	context['items'] = all_projects
+	if request.user.is_authenticated():
+		current_user = User.objects.get(pk=request.user.id)
+		finished_projects = Submission.objects.filter(student=current_user).filter(finished=True)
+		awaiting_projects = Submission.objects.filter(student=current_user).filter(reviewer__isnull=True)
+		resubmission_required = Submission.objects.filter(student=current_user).filter(returned_on__isnull=False).filter(finished=False).values(
+			'project__name').annotate(count=Count('project', distinct=True))
+
+		for item in context['items']:
+			for dictionary in finished_projects:
+				if item == dictionary.project:
+					item.status = "Yes"
+					break;
+			for dictionary in awaiting_projects:
+				if item == dictionary.project:
+					item.status ="Wait"
+					break;
+			for dictionary in resubmission_required:
+				if item.name == dictionary['project__name']:
+					item.status ="Redo"
+					break;
+
 	return render(request, 'projects/categories.html', context)
 
 
@@ -193,7 +214,8 @@ def showStudentDash(request):
 		finished_projects = Submission.objects.filter(student=current_user).filter(finished=True)
 		context = {}
 		context['finished_projects'] = finished_projects
-		resubmission_required = Submission.objects.filter(student=current_user).filter(returned_on__isnull=False).filter(finished=False).values('project__name', 'project__id').annotate(count=Count('project', distinct=True))
+		resubmission_required = Submission.objects.filter(student=current_user).filter(returned_on__isnull=False).filter(finished=False).values('project__name',
+			'project__id').annotate(count=Count('project', distinct=True))
 		context['resubmit_projects'] = resubmission_required
 		awaiting_projects = Submission.objects.filter(student=current_user).filter(reviewer__isnull=True)
 		context['awaiting_projects'] = awaiting_projects
