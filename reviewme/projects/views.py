@@ -189,7 +189,12 @@ def submitReview(request, submission_id):
 #method to show the student dashboard
 def showStudentDash(request):
 	if request.user.is_authenticated():
+		current_user = User.objects.get(pk=request.user.id)
+		finished_projects = Submission.objects.filter(student=current_user).filter(finished=True)
 		context = {}
+		context['finished_projects'] = finished_projects
+		resubmission_required = Submission.objects.filter(student=current_user).filter(returned_on__isnull=False).filter(finished=False).values('project__name', 'project__id').annotate(count=Count('project', distinct=True))
+		context['resubmit_projects'] = resubmission_required
 		return render(request, "projects/studentdash.html", context)
 	else:
 		return HttpResponseRedirect(reverse('users:login'))

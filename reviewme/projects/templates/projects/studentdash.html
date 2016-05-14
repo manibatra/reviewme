@@ -50,10 +50,12 @@
             </thead>
 
             <tbody>
-              {% for dictionary in available %}
+              {% for dictionary in resubmit_projects %}
               <tr>
                   <td>{{ dictionary.project__name }}</td>
-                  <td>{{ dictionary.count }}</td>
+                  <td>Resubmission Required</td>
+                  <td><a href="/content/submission/{{dictionary.id}}/" class="waves-effect waves-light btn">Resubmit
+                        <i class="material-icons right">redo</i></a></td>
               </tr>
               {% endfor %}
             </tbody>
@@ -78,12 +80,11 @@
             </thead>
 
             <tbody>
-              {% for dictionary in assigned %}
+              {% for dictionary in finished_projects %}
                 <tr>
-                  <td>{{ dictionary.project__name }}</td>
-                  <td>$ {{ dictionary.project__cost}}</td>
-                  <td>{{ dictionary.time_remaining}} hr{{ dictionary.time_remaining | pluralize }}</td>
-                  <td><a href="/content/submission/{{dictionary.id}}/" class="waves-effect waves-light btn">Resume
+                  <td>{{ dictionary.project.name }}</td>
+                  <td>$ {{ dictionary.project.cost}}</td>
+                  <td><a href="/content/submission/{{dictionary.id}}/" class="waves-effect waves-light btn">View
                         <i class="material-icons right">redo</i></a></td>
                 </tr>
               {% endfor %}
