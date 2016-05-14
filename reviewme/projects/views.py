@@ -186,3 +186,10 @@ def submitReview(request, submission_id):
 	raise Http404()
 
 
+#method to show the student dashboard
+def showStudentDash(request):
+	if request.user.is_authenticated():
+		context = {}
+		return render(request, "projects/studentdash.html", context)
+	else:
+		return HttpResponseRedirect(reverse('users:login'))

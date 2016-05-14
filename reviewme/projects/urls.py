@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
 	url(r'^dashboard/reviewer/$', views.showReviewerDash, name='reviewer_dashboard'),
+	url(r'^dashboard/student/$', views.showStudentDash, name='student_dashboard'),
 	url(r'^assign/$', views.assignSubmission, name='assign_submission'),
 	url(r'^submission/(?P<submission_id>[0-9]+)/$', views.showSubmission, name='show_submission'),
 	url(r'^submission/submit/(?P<submission_id>[0-9]+)/$', views.submitReview, name='submit_review'),
