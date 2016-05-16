@@ -33,7 +33,7 @@ def showProjects(request, subcategory_id):
 	if request.user.is_authenticated():
 		current_user = User.objects.get(pk=request.user.id)
 		finished_projects = Submission.objects.filter(student=current_user).filter(finished=True)
-		awaiting_projects = Submission.objects.filter(student=current_user).filter(reviewer__isnull=True)
+		awaiting_projects = Submission.objects.filter(student=current_user).filter(returned_on__isnull=True)
 		resubmission_required = Submission.objects.filter(student=current_user).filter(returned_on__isnull=False).filter(finished=False).values(
 			'project__name').annotate(count=Count('project', distinct=True))
 
@@ -58,6 +58,27 @@ def projectDetail(request, project_id):
 	context = {}
 	current_project = Project.objects.get(pk=project_id)
 	context['project'] = current_project
+	context['status'] = "No"
+	if request.user.is_authenticated():
+		current_user = User.objects.get(pk=request.user.id)
+		finished_projects = Submission.objects.filter(student=current_user).filter(finished=True)
+		awaiting_projects = Submission.objects.filter(student=current_user).filter(returned_on__isnull=True)
+		resubmission_required = Submission.objects.filter(student=current_user).filter(returned_on__isnull=False).filter(finished=False).values(
+			'project__name').annotate(count=Count('project', distinct=True))
+
+
+		for dictionary in finished_projects:
+			if current_project == dictionary.project:
+				context['status'] = "Yes"
+				break;
+		for dictionary in awaiting_projects:
+			if current_project == dictionary.project:
+				context['status'] ="Wait"
+				break;
+		for dictionary in resubmission_required:
+			if current_project.name == dictionary['project__name']:
+				context['status'] ="No"
+				break;
 	return render(request, 'projects/projectdetail.html', context)
 
 
@@ -66,7 +87,7 @@ def submitProject(request, project_id):
 		if request.user.is_authenticated():
 			project = Project.objects.get(pk=project_id)
 			user = User.objects.get(pk=request.user.id)
-			new_submission = Submission(project=project, student=user, notes=request.POST['note'])
+			new_submission = Submission(project=project, student=user, notes=request.POST['notes'])
 			try:
 				new_submission.submitted_files = request.FILES['projectzip']
 			except:
