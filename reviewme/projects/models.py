@@ -52,6 +52,13 @@ class Spec(models.Model):
 	def __unicode__(self):
 		return self.project.name
 
+class Resource(models.Model):
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+	link = models.URLField(null=True, blank=True)
+
+	def __unicode__(self):
+		return self.project.name
+
 class Reviewer(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	training_complete = models.BooleanField(default=False)

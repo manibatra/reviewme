@@ -58,6 +58,7 @@
       <div class="cd-timeline-content">
        <h5>Example</h5>
         <h5 class="thin"><blockquote class="green-border">Have a look at the example</blockquote></h5>
+        <a href="{{project.example}}" class="waves-effect waves-light btn">Example</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
@@ -83,15 +84,11 @@
       <div class="cd-timeline-content">
         <h5>Resources</h5>
         <h5 class="thin"><blockquote class="yellow-border">Checkout the follwing resources that will help you with the background skills required to completet this project</blockquote></h5>
+        {% for item in resources %}
          <div class="col s12 m12">
-           <a href=""><h5 class="thin"> First Resource</h5> </a>
+           <a href="{{item.link}}"><h5 class="thin">{{item.link}}</h5> </a>
         </div>
-        <div class="col s12 m12">
-           <a href=""><h5 class="thin"> First Resource</h5> </a>
-        </div>
-        <div class="col s12 m12">
-           <a href=""><h5 class="thin"> First Resource</h5> </a>
-        </div>
+        {% endfor %}
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
