@@ -39,7 +39,7 @@ class Project(models.Model):
 
 class Objective(models.Model):
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
-	objective = models.TextField
+	objective = models.TextField(null=True, blank=True)
 
 	def __unicode__(self):
 		return self.project.name
