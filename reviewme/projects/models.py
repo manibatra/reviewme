@@ -37,6 +37,13 @@ class Project(models.Model):
 	def __unicode__(self):
 		return self.name + "  (" + self.sub_category.name + ")    -     " + str(self.cost)
 
+class Objective(models.Model):
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+	objective = models.TextField
+
+	def __unicode__(self):
+		return self.project.name
+
 class Reviewer(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	training_complete = models.BooleanField(default=False)
