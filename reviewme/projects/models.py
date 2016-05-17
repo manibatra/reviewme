@@ -32,6 +32,7 @@ class Project(models.Model):
 	name = models.CharField(max_length=132)
 	description = models.TextField()
 	sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+	example = models.URLField(null=True, blank=True)
 	cost = models.IntegerField()
 
 	def __unicode__(self):
