@@ -44,6 +44,13 @@ class Objective(models.Model):
 	def __unicode__(self):
 		return self.project.name
 
+class Spec(models.Model):
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+	spec = models.TextField(null=True, blank=True)
+
+	def __unicode__(self):
+		return self.project.name
+
 class Reviewer(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	training_complete = models.BooleanField(default=False)
