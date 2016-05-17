@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Category, SubCategory, Project, Submission, Reviewer, Role
+from .models import Category, SubCategory, Project, Submission, Reviewer, Role, Objective
 from django.db.models import Count
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect,HttpResponse, Http404
@@ -66,6 +66,7 @@ def projectDetail(request, project_id):
 	current_project = Project.objects.get(pk=project_id)
 	context['project'] = current_project
 	context['status'] = "No"
+	context['objectives'] = Objective.objects.filter(project=current_project)
 	if request.user.is_authenticated():
 		current_user = User.objects.get(pk=request.user.id)
 		all_submissions = Submission.objects.filter(student=current_user).filter(project=current_project).filter(returned_on__isnull=False)

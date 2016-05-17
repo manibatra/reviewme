@@ -67,18 +67,12 @@
 
       <div class="cd-timeline-content">
         <h5>Project Objectives</h2>
+        {% for item in objectives %}
         <div class="col s12 m12">
-           <input name="group1" type="radio" checked="checked" disable="disabled" id="test1" />
-          <label for="test1"><h5 class="margin-top-0">Objective 1</h5></label>
+           <input name="{{item.id}}" type="radio" checked="checked" disable="disabled" id="test1" />
+          <label for="test1"><h5 class="margin-top-0">{{item.objective}}</h5></label>
         </div>
-        <div class="col s12 m12">
-           <input name="group2" type="radio" checked="checked" disable="disabled" id="test1" />
-          <label for="test1"><h5 class="margin-top-0">Objective 2</h5></label>
-        </div>
-        <div class="col s12 m12">
-           <input name="group3" type="radio" checked="checked" disable="disabled" id="test1" />
-          <label for="test1"><h5 class="margin-top-0">Objective 3</h5></label>
-        </div>
+        {% endfor %}
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
