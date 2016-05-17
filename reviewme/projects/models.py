@@ -32,10 +32,32 @@ class Project(models.Model):
 	name = models.CharField(max_length=132)
 	description = models.TextField()
 	sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+	example = models.URLField(null=True, blank=True)
 	cost = models.IntegerField()
 
 	def __unicode__(self):
 		return self.name + "  (" + self.sub_category.name + ")    -     " + str(self.cost)
+
+class Objective(models.Model):
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+	objective = models.TextField(null=True, blank=True)
+
+	def __unicode__(self):
+		return self.project.name
+
+class Spec(models.Model):
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+	spec = models.TextField(null=True, blank=True)
+
+	def __unicode__(self):
+		return self.project.name
+
+class Resource(models.Model):
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+	link = models.URLField(null=True, blank=True)
+
+	def __unicode__(self):
+		return self.project.name
 
 class Reviewer(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -47,9 +69,13 @@ class Reviewer(models.Model):
 		return self.user.get_username() + "    -    " + self.project.name
 
 
+def submission_directory_path(instance, filename):
+		# file will be uploaded to MEDIA_ROOT/<userid>_review_<id>
+		return '{1}_submission_{0}.zip'.format(instance.project.name, instance.student.id)
+
 def review_directory_path(instance, filename):
 		# file will be uploaded to MEDIA_ROOT/<userid>_review_<id>
-		return '{1}_submission_{0}'.format(instance.project.name, instance.student)
+		return '{1}_review_{0}.zip'.format(instance.project.name, instance.student.id)
 
 
 class Submission(models.Model):
@@ -58,17 +84,21 @@ class Submission(models.Model):
 	reviewer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="reviewed_by")
 	submitted_on = models.DateTimeField(auto_now_add=True)
 	returned_on = models.DateTimeField(null=True, blank=True)
-	finished = models.BooleanField(default=False)
+	finished = models.BooleanField(default=False) #to be marked finished only when the whole project is complete
 	assigned_time = models.DateTimeField(null=True, blank=True)
-	finished_time = models.DateTimeField(null=True, blank=True)
 	notes = models.TextField(null=True, blank=True)
 	feedback = models.TextField(null=True, blank=True)
-	files = models.FileField(upload_to=review_directory_path)
+	submitted_files = models.FileField(upload_to=submission_directory_path)
+	review_files = models.FileField(upload_to=review_directory_path, blank=True, null=True)
+
 
 
 	def __unicode__(self):
-		if self.reviewer:
-			return self.student.get_username() + "  -  " + self.project.name +  "  -   " + self.reviewer.get_username()
+		if self.reviewer and self.finished:
+			return self.student.get_username() + "  -  " + self.project.name +  "  -   " + self.reviewer.get_username() + "  -  finished"
+		elif self.reviewer and self.returned_on:
+			return self.student.get_username() + "  -  " + self.project.name +  "  -   " + self.reviewer.get_username() + "  -  not finished"
+
 		else:
 			return self.student.get_username() + "  -  " + self.project.name
 

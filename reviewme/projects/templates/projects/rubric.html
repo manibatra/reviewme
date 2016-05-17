@@ -42,62 +42,35 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
+  <main>
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-      <h1 class="header center deep-orange-text">ReviewMe</h1>
+      <h1 class="header center deep-orange-text">{{project.name|title}}</h1>
       <div class="row center">
-        <h5 class="header col s12 light">A place to learn and get some real human feedback for your projects.</h5>
-      </div>
-      <div class="row center margin-top-100  ">
-        <a href="{% url 'projects:categories' %}" id="download-button" class="btn-large waves-effect waves-light deep-orange z-depth-3">Get Started</a>
+        <h5 class="header col s12 light">{{project.description}}</h5>
       </div>
       <br><br>
 
     </div>
   </div>
-
-
-  <div class="container margin-top-25">
-    <div class="section">
-
-      <div class="row">
-        <div class="col s12 m4">
-          <div class="icon-block center-align">
-            <h2 class="center light-blue-text"><i class="material-icons large">description</i></h2>
-            <h5 class="center">Variety Of Projects</h5>
-
-            <p class="light flow-text">Complete one of our projects. We have a detailed and clearly defined specs that help you get better
-            	as you build.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block center-align">
-            <h2 class="center light-blue-text"><i class="material-icons large">cloud_upload</i></h2>
-            <h5 class="center">Submit Your Project</h5>
-
-            <p class="light flow-text">After finishing your project and making sure that you meet all the requirements listed in the spec all you have to do is submit your project, sit back and relax.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m4">
-          <div class="icon-block center-align">
-            <h2 class="center light-blue-text"><i class="material-icons large">rate_review</i></h2>
-            <h5 class="center">Personalised Human Feedback</h5>
-
-            <p class="light flow-text">One of our vetted reviewers will check your project for you. You will get feedback from other developers who have been through the learning process.</p>
-          </div>
-        </div>
+  <div class="container">
+      <div class="row left-align">
+        <h2 class="thin">Specifications To Meet</h2>
       </div>
+      {% for item in specs %}
+        <div class="col s12 m12 margin-top-25">
+           <input name="{{item.id}}" type="checkbox" id="{{item.id}}" />
+          <label for="{{item.id}}"><h5 class="margin-top-0">{{item.spec}}</h5></label>
+        </div>
 
-    </div>
-    <br><br>
+      {% endfor %}
 
-    <div class="section">
 
-    </div>
   </div>
+  </main>
+
+
 
    <footer class="page-footer transparent">
     <div class="footer-copyright deep-orange lighten-3">
@@ -124,6 +97,25 @@
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+    var checkbox = $(document).find(':checkbox'),
+        checkboxCookieName = 'checkbox-state';
+
+    checkbox.each(function() {
+        if ($.cookie(checkboxCookieName + $(this).attr('name')) == 'true') {
+            $(this).attr('checked', 'checked');
+        } else {
+            $(this).removeAttr('checked');
+        }
+    });
+
+    checkbox.click(function() {
+        $.cookie(checkboxCookieName + $(this).attr('name'), $(this).prop('checked'));
+    });
+});
+  </script>
   <script type="text/javascript" async>
     (function($){
   $(function(){
@@ -137,6 +129,8 @@
    $(document).ready(function() {
     Materialize.updateTextFields();
   });
+
+
 
   </script>
 

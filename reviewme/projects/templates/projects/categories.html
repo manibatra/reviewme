@@ -17,8 +17,8 @@
     <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home:landing' %}" class="brand-logo"><i class="material-icons left medium">assignment_turned_in</i>ReviewMe</a>
     {% if request.user.is_authenticated %}
       <ul class="right hide-on-med-and-down">
-        <li class="active"><a href="#">Student Dashboard</a></li>
-        <li><a  href="#">Reviwer Dashboard</a></li>
+        <li><a href="">{{user.first_name}}</a></li>
+        <li><a href="{% url 'projects:reviewer_dashboard' %}">Reviwer Dashboard</a></li>
         <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
     {% else %}
@@ -58,7 +58,15 @@
               {% elif type == "subcategories" %}
                <a href="{% url 'projects:projects' item.id %}" class="deep-orange-text">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
               {% else %}
-               <a href="{% url 'projects:project_detail' item.id %}" class="deep-orange-text">Start Project<i class="material-icons right">trending_flat</i></a>
+                  {% if item.status == "Yes" %}
+                 <a href="{% url 'projects:project_detail' item.id %}" class="teal-text">Finished Project<i class="material-icons right">beenhere</i></a>
+                  {% elif item.status == "Wait" %}
+                  <a href="{% url 'projects:project_detail' item.id %}" class="amber-text">Awaiting Review<i class="material-icons right">timer</i></a>
+                  {% elif item.status == "Redo" %}
+                  <a href="{% url 'projects:project_detail' item.id %}" class="red-text">Resubmit<i class="material-icons right">assignment_late</i></a>
+                  {% else %}
+                  <a href="{% url 'projects:project_detail' item.id %}" class="deep-orange-text">Start<i class="material-icons right">trending_flat</i></a>
+                  {% endif %}
               {% endif %}
             </div>
           </div>
@@ -116,7 +124,7 @@
       $('#displayThis').text('Student Dashboard')
    })
   </script>
-  s{% if messages %}
+  {% if messages %}
       {% for message in messages %}
       <script>Materialize.toast('{{ message }}', 4000, 'rounded teal')</script>
       {% endfor %}
