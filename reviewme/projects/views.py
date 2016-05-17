@@ -37,19 +37,26 @@ def showProjects(request, subcategory_id):
 		resubmission_required = Submission.objects.filter(student=current_user).filter(returned_on__isnull=False).filter(finished=False).values(
 			'project__name').annotate(count=Count('project', distinct=True))
 
+		flag = 0
+
 		for item in context['items']:
+			flag = 0
 			for dictionary in finished_projects:
 				if item == dictionary.project:
 					item.status = "Yes"
+					flag = 1;
 					break;
-			for dictionary in awaiting_projects:
-				if item == dictionary.project:
-					item.status ="Wait"
-					break;
-			for dictionary in resubmission_required:
-				if item.name == dictionary['project__name']:
-					item.status ="Redo"
-					break;
+			if flag == 0:
+				for dictionary in awaiting_projects:
+					if item == dictionary.project:
+						item.status ="Wait"
+						flag = 1;
+						break;
+			if flag == 0:
+				for dictionary in resubmission_required:
+					if item.name == dictionary['project__name']:
+						item.status ="Redo"
+						break;
 
 	return render(request, 'projects/categories.html', context)
 
@@ -61,24 +68,32 @@ def projectDetail(request, project_id):
 	context['status'] = "No"
 	if request.user.is_authenticated():
 		current_user = User.objects.get(pk=request.user.id)
+		all_submissions = Submission.objects.filter(student=current_user).filter(project=current_project).filter(returned_on__isnull=False)
+		if len(all_submissions) > 0:
+			context['history'] = all_submissions
 		finished_projects = Submission.objects.filter(student=current_user).filter(finished=True)
 		awaiting_projects = Submission.objects.filter(student=current_user).filter(returned_on__isnull=True)
 		resubmission_required = Submission.objects.filter(student=current_user).filter(returned_on__isnull=False).filter(finished=False).values(
 			'project__name').annotate(count=Count('project', distinct=True))
 
+		flag = 0
 
 		for dictionary in finished_projects:
 			if current_project == dictionary.project:
 				context['status'] = "Yes"
+				flag = 1;
 				break;
-		for dictionary in awaiting_projects:
-			if current_project == dictionary.project:
-				context['status'] ="Wait"
-				break;
-		for dictionary in resubmission_required:
-			if current_project.name == dictionary['project__name']:
-				context['status'] ="No"
-				break;
+		if flag == 0:
+			for dictionary in awaiting_projects:
+				if current_project == dictionary.project:
+					context['status'] ="Wait"
+					flag = 1;
+					break;
+		if flag == 0:
+			for dictionary in resubmission_required:
+				if current_project.name == dictionary['project__name']:
+					context['status'] ="No"
+					break;
 	return render(request, 'projects/projectdetail.html', context)
 
 
@@ -193,9 +208,15 @@ def showSubmission(request, submission_id):
 		current_user = User.objects.get(pk=request.user.id)
 		current_user_role = Role.objects.get(user=current_user)
 		if current_user_role.reviewer:
-			current_submission = Submission.objects.get(id=submission_id, reviewer=current_user);
+			current_submission = Submission.objects.get(id=submission_id, reviewer=current_user)
 			context = {}
 			context['submission'] = current_submission
+			current_student = current_submission.student
+
+			all_submissions = Submission.objects.filter(student=current_student).filter(project=current_submission.project).filter(returned_on__isnull=False)
+			if len(all_submissions) > 0:
+				context['history'] = all_submissions
+
 			return render(request, 'projects/submission.html', context)
 		else:
 			raise Http404()

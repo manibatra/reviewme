@@ -61,6 +61,29 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
+    {% if history %}
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-location">
+      </div> <!-- cd-timeline-img -->
+
+      <div class="cd-timeline-content">
+        <h5>History</h5>
+        <h5 class="thin"><blockquote class="yellow-border">You can access past revivews from here</blockquote></h5>
+        {% for item in history %}
+          {% if item.review_files %}
+          <div class="row">
+            <div class="col s12 m12">
+              <a href="{{item.review_files.url}}/" class="waves-effect waves-light btn">
+              {{ item.submitted_on|date:"D d M Y"}}, {{ item.submitted_on|time:"g:i A"}}</a>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+      </div> <!-- cd-timeline-content -->
+    </div> <!-- cd-timeline-block -->
+
+    {% endif %}
+
     <div class="cd-timeline-block">
       <div class="cd-timeline-img cd-location">
       </div> <!-- cd-timeline-img -->
