@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Category, SubCategory, Project, Submission, Reviewer, Role, Objective
+from .models import Category, SubCategory, Project, Submission, Reviewer, Role, Objective, Spec
 from django.db.models import Count
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect,HttpResponse, Http404
@@ -265,3 +265,12 @@ def showStudentDash(request):
 		return render(request, "projects/studentdash.html", context)
 	else:
 		return HttpResponseRedirect(reverse('users:login'))
+
+
+#method to show the project specifications
+def projectSpec(request, project_id):
+	current_project = Project.objects.get(pk=project_id)
+	context = {}
+	context['specs'] = Spec.objects.filter(project=current_project)
+	context['project'] = current_project
+	return render(request, "projects/rubric.html", context)

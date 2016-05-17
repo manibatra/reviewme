@@ -126,7 +126,7 @@
       <div class="cd-timeline-content">
         <h5>Rubric</h5>
         <h5 class="thin"><blockquote class="yellow-border">Have a look at the rubric. You must meet all the specifications specified in the rubric.</blockquote></h5>
-        <a href="/content/submission/{{dictionary.id}}/" class="waves-effect waves-light btn">Rubric</a>
+        <a href="{% url 'projects:project_specs' project.id %}" class="waves-effect waves-light btn">Rubric</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
