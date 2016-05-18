@@ -135,7 +135,7 @@ def showReviewerDash(request):
 		if current_role.reviewer:
 			#list all the availablel projects that the reviewer is eligible to review
 			all_eligible_projects = Reviewer.objects.filter(user=current_reviewer).filter(training_complete=True).values_list('project__id', flat=True)
-			projects_available = Submission.objects.filter(project__in=all_eligible_projects).filter(reviewer__isnull=True).filter(returned_on__isnull=
+			projects_available = Submission.objects.filter(project__in=all_eligible_projects).exclude(student=current_reviewer).filter(reviewer__isnull=True).filter(returned_on__isnull=
 				True).values('project__name', 'project__id', 'project__cost').annotate(count=Count('project'))
 
 			context = {}
