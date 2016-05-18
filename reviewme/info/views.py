@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def aboutPage(request):
 	return render(request, 'info/about.html')
+
+def privacyPage(request):
+	return render(request, 'info/privacy.html')
