@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'home',
     'users',
     'projects',
+    'info',
 ]
 
 MIDDLEWARE_CLASSES = [
