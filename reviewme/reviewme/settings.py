@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import raven
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     'home',
     'users',
     'projects',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -149,6 +152,22 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+#raven settings
+try:#sentry settings
+    RAVEN_CONFIG = {
+        'dsn': os.environ.get('RAVEN_DSN'),
+        'release': raven.fetch_git_sha(os.path.dirname(__file__)),
+
+    }
+except:
+    try:
+         RAVEN_CONFIG = {
+            'dsn': os.environ.get('RAVEN_DSN'),
+        }
+    except:
+        pass
+
 
 try:
     from .local_settings import *
