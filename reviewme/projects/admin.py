@@ -10,7 +10,7 @@ admin.site.register(Submission)
 admin.site.register(Reviewer)
 # admin.site.register(Objective)
 # admin.site.register(Spec)
-admin.site.register(Resource)
+# admin.site.register(Resource)
 
 class ObjectiveInline(admin.TabularInline):
 	model = Objective
@@ -18,10 +18,14 @@ class ObjectiveInline(admin.TabularInline):
 class SpecInline(admin.TabularInline):
 	model = Spec
 
+class ResourceInline(admin.TabularInline):
+	model = Resource
+
 class ProjectAdmin(admin.ModelAdmin):
 	inlines = [
 				ObjectiveInline,
-				SpecInline
+				SpecInline,
+				ResourceInline
 			]
 
 admin.site.register(Project, ProjectAdmin)
