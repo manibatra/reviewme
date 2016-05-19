@@ -17,8 +17,8 @@
     <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home:landing' %}" class="brand-logo"><i class="material-icons left medium">assignment_turned_in</i>ReviewMe</a>
     {% if request.user.is_authenticated %}
       <ul class="right hide-on-med-and-down">
-        <li><a href="#">Student Dashboard</a></li>
-        <li class="active"><a  href="#">{{user.first_name}}</a></li>
+        <li><a href="{% url 'home:landing' %}">Projects</a></li>
+        <li><a href="{% url 'projects:reviewer_dashboard' %}">Reviwer Dashboard</a></li>
         <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
     {% else %}
@@ -26,9 +26,17 @@
         <li><a  class="btn deep-orange" href="{% url 'users:login_user' %}">Sign In</a></li>
       </ul>
     {% endif %}
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
+    {% if request.user.is_authenticated %}
+      <ul class="side-nav" id="nav-mobile">
+        <li><a href="{% url 'home:landing' %}">Projects</a></li>
+        <li><a href="{% url 'projects:reviewer_dashboard' %}">Reviwer Dashboard</a></li>
+        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
+    {% else %}
+      <ul class="side-nav" id="nav-mobile">
+        <li><a  class="btn deep-orange" href="{% url 'users:login_user' %}">Sign In</a></li>
+      </ul>
+    {% endif %}
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
@@ -105,22 +113,22 @@
   </div>
   </main>
 
-   <footer class="page-footer transparent">
+  <footer class="page-footer transparent">
     <div class="footer-copyright deep-orange lighten-3">
       <div class="container">
         <div class="row">
-      <div class="col s12 m1">
-        About
-      </div>
-      <div class="col s12 m1">
-        Register
-      </div>
-      <div class="col s12 m1">
-        Privacy
-      </div>
-      <div class="col s12 m1">
-        ©ReviewMe
-      </div>
+          <div class="col s3 m2">
+            About
+          </div>
+          <div class="col s3 m2">
+            Register
+          </div>
+          <div class="col s3 m2">
+            Privacy
+          </div>
+          <div class="col s3 m2">
+            ©ReviewMe
+          </div>
         </div>
       </div>
     </div>
