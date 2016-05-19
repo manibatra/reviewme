@@ -32,3 +32,7 @@ urlpatterns = [
      url(r'^password/reset-password-confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', auth_views.password_reset_confirm, {'template_name': 'users/password_reset_confirm.html'}, name="password_reset_confirm"),
     url(r'^password/reset-password-complete/$', auth_views.password_reset_complete, {'template_name': 'users/password_reset_complete.html'}, name="password_reset_complete"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+handler404 = 'reviewme.views.custom_404_view'
+handler500 = 'reviewme.views.custom_500_view'
