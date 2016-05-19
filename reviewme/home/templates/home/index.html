@@ -26,15 +26,15 @@
         <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
       </ul>
     {% endif %}
-      <ul id="nav-mobile" class="side-nav">
+      <ul >
         {% if request.user.is_authenticated %}
-      <ul class="right hide-on-med-and-down">
+      <ul id="nav-mobile" class="side-nav">
         <<li><a href="{% url 'home:landing' %}">Projects</a></li>
         <li><a  href="#">Reviwer Dashboard</a></li>
         <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
     {% else %}
-      <ul class="right hide-on-med-and-down">
+      <ul id="nav-mobile" class="side-nav">
         <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
       </ul>
     {% endif %}
@@ -103,18 +103,18 @@
     <div class="footer-copyright deep-orange lighten-3">
       <div class="container">
       	<div class="row">
-			<div class="col s12 m1">
-				About
-			</div>
-			<div class="col s12 m1">
-				Register
-			</div>
-			<div class="col s12 m1">
-				Privacy
-			</div>
-			<div class="col s12 m1">
-				©ReviewMe
-			</div>
+    			<div class="col s3 m2">
+    				About
+    			</div>
+    			<div class="col s3 m2">
+    				Register
+    			</div>
+    			<div class="col s3 m2">
+    				Privacy
+    			</div>
+    			<div class="col s3 m2">
+    				©ReviewMe
+    			</div>
       	</div>
       </div>
     </div>
