@@ -25,7 +25,7 @@ from django.conf import settings
 
 urlpatterns = [
 	url(r'^', include('home.urls', namespace="home")),
-    url(r'^admin/', admin.site.urls),
+    url(r'^{}/admin/'.format(settings.ADMIN_URL_PATH), admin.site.urls),
     url(r'^users/', include('users.urls', namespace="users")),
     url(r'^content/',include('projects.urls', namespace="projects")),
     url(r'^users/reset-password-done/$', auth_views.password_reset_done, {'template_name': 'users/password_reset_done.html'}, name="password_reset_done"),
