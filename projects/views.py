@@ -232,7 +232,7 @@ def showSubmission(request, submission_id):
 			if len(all_submissions) > 0:
 				context['history'] = all_submissions
 
-			return render(request, 'projects/submission.html', context)
+			return render(request, 'projects/submission.html/' + submission_id , context)
 		else:
 			raise Http404()
 	else:
