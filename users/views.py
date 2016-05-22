@@ -101,8 +101,8 @@ def signupUser(request):
 
 #method to show a view indacting user to confirm
 def verification_start(request):
-	context = { 'text' : 'A confirmation email has been sent to your email address. Click on the confirmation\
-					link in your email to activate your account', 'heading' : 'confirm your email address' }
+	context = { 'text' : 'A confirmation email has been sent to your email address. Click on the confirmation'
+	'link in your email to activate your account', 'heading' : 'confirm your email address' }
 	return render(request, 'users/verification.html', context)
 
 #view to show when user clicks the confirmation link
@@ -120,8 +120,8 @@ def verification_confirm(request, uuid, ver_code):
 
 #method to complete the verification process
 def verification_complete(request):
-	context = { 'text' : 'Your email has been confirmed. You can login and start using ReviewMe now.\
-					', 'heading' : 'Email Address Confirmed' }
+	context = { 'text' : 'Your email has been confirmed. You can login and start using ReviewMe now.'
+					, 'heading' : 'Email Address Confirmed' }
 	return render(request, 'users/verification.html', context)
 
 #method to login the user
