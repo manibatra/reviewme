@@ -71,11 +71,11 @@ class Reviewer(models.Model):
 
 def submission_directory_path(instance, filename):
 		# file will be uploaded to MEDIA_ROOT/<userid>_review_<id>
-		return 'submissions/{1}/{0}/{2}_submission_{0}.zip'.format(instance.project.name, instance.student.id, instance.id)
+		return 'submissions/{1}/{0}/{2}_submission_{0}.zip'.format(instance.project.id, instance.student.id, instance.id)
 
 def review_directory_path(instance, filename):
 		# file will be uploaded to MEDIA_ROOT/<userid>_review_<id>
-		return 'reviews/{1}/{0}/{2}_review_{0}.zip'.format(instance.project.name, instance.student.id, instance.id)
+		return 'reviews/{1}/{0}/{2}_review_{0}.zip'.format(instance.project.id, instance.student.id, instance.id)
 
 
 class Submission(models.Model):
