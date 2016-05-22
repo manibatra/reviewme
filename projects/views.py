@@ -169,10 +169,22 @@ def showReviewerDash(request):
 			context['message'] = "You have not yet applied to be a reviewer. You can do so by clicking the button below."
 			context['button'] = True
 			context['button_message'] = "Apply"
-			context['button_url'] = "/content/categories"
+			context['button_url'] = "/content/apply"
 			return render(request, 'message.html', context)
 	else:
-		raise HttpResponseRedirect(reverse('users:login'))
+		return HttpResponseRedirect(reverse('users:login_user'))
+
+def applyReviewer(request):
+	current_user = User.objects.get(pk=request.user.id)
+
+	current_role = Role.objects.get(user=current_user)
+
+	current_role.reviewer=True
+	current_role.save()
+	context = {}
+	context['heading'] = "Awesome"
+	context['message'] = "Your application has been submitted. We will be in touch shortly."
+	return render(request, 'message.html', context)
 
 def time_remaining(assigned_time):
 	dt = datetime.datetime.utcnow().replace(tzinfo=utc)  - assigned_time

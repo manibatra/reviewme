@@ -9,6 +9,7 @@ urlpatterns = [
 	url(r'^submission/(?P<submission_id>[0-9]+)/$', views.showSubmission, name='show_submission'),
 	url(r'^submission/submit/(?P<submission_id>[0-9]+)/$', views.submitReview, name='submit_review'),
 	url(r'^categories/$', views.showCategories, name='categories'),
+	url(r'^apply/$', views.applyReviewer, name='apply'),
 	url(r'^categories/(?P<category_id>[0-9]+)/$', views.showSubCategories, name='sub_categories'),
 	url(r'^categories/subcategories/(?P<subcategory_id>[0-9]+)/$', views.showProjects, name='projects'),
 	url(r'^categories/projects/(?P<project_id>[0-9]+)/$', views.projectDetail, name='project_detail'),
