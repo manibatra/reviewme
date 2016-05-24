@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Topics</title>
+  <title>{{ project.name }}</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -94,7 +94,7 @@
         <h5 class="thin"><blockquote class="yellow-border">Checkout the follwing resources that will help you with the background skills required to completet this project</blockquote></h5>
         {% for item in resources %}
          <div class="col s12 m12">
-           <a href="{{item.link}}"><h5 class="thin">{{item.link}}</h5> </a>
+           <h5 class="thin"><a href="{{item.link}}" class="flow-text">{{item.link}}</a></h5>
         </div>
         {% endfor %}
       </div> <!-- cd-timeline-content -->
