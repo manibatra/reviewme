@@ -34,6 +34,6 @@
  	cursor: pointer;
  }
 
- .card-title {
+.card .card-content .card-title {
  	line-height: 30px;
  }
