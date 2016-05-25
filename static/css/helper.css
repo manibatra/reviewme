@@ -27,5 +27,9 @@
 
  /*styles for Category and subcategory pages*/
  .category-description {
- 	height: 160px;
+ 	height: 200px;
+ }
+
+ .activator {
+ 	cursor: pointer;
  }
