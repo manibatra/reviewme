@@ -1,0 +1,98 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>About</title>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+ <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+  </head>
+<body>
+ <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home:landing' %}" class="brand-logo"><i class="material-icons left medium">assignment_turned_in</i>ReviewMe</a>
+    {% if request.user.is_authenticated %}
+      <ul class="right hide-on-med-and-down">
+        <li class="#"><a href="#">{{user.first_name}}</a></li>
+        <li><a  href="#">Reviwer Dashboard</a></li>
+        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+      </ul>
+    {% else %}
+      <ul class="right hide-on-med-and-down">
+        <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
+      </ul>
+    {% endif %}
+      <ul id="nav-mobile" class="side-nav">
+        {% if request.user.is_authenticated %}
+      <ul class="right hide-on-med-and-down">
+        <li class="#"><a href="#">Student Dashboard</a></li>
+        <li><a  href="#">Reviwer Dashboard</a></li>
+        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+      </ul>
+    {% else %}
+      <ul class="right hide-on-med-and-down">
+        <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
+      </ul>
+    {% endif %}
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+
+  <main>
+    <div class="container">
+      <h4>About</h4>
+      <p>ReviewMe is a place to get your projects reviewed as you learn. Our projects are designed to help you utilise the resources already out there on the internet and put them into practice. We encourage curiosity, self-learning and getting hands on with our practical projects.</p>
+      <p>Our dedicated team of reviewers are passionate to help you learn, and will provide personalised feedback on your work in order to help you become better at what you’re learning.</p>
+      <p><em>Learn</em>, <em>build</em> &amp <em>get reviewed</em> on your projects with us at ReviewMe.</p>
+      <hr>
+    </div>
+  </main>
+
+  <footer class="page-footer transparent">
+   <div class="footer-copyright deep-orange lighten-3">
+     <div class="container">
+       <div class="row">
+         <div class="col s3 m2">
+           <a href="{% url 'info:about' %}"> About </a>
+         </div>
+         <div class="col s3 m2">
+           <a href="{% url 'users:signup_user' %}"> Register </a>
+         </div>
+         <div class="col s3 m2">
+           <a href="{% url 'info:privacy' %}"> Privacy </a>
+         </div>
+         <div class="col s3 m2">
+           ©ReviewMe
+         </div>
+       </div>
+     </div>
+   </div>
+ </footer>
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script type="text/javascript" async>
+    (function($){
+  $(function(){
+
+    $('.button-collapse').sideNav();
+
+  }); // end of document ready
+})(jQuery); // end of jQuery name space
+
+
+   $(document).ready(function() {
+    Materialize.updateTextFields();
+  });
+
+  </script>
+
+  </body>
+</html>

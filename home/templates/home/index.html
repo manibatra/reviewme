@@ -1,0 +1,145 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>ReviewMe</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+ <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+  </head>
+<body>
+ <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home:landing' %}" class="brand-logo"><i class="material-icons left medium">assignment_turned_in</i>ReviewMe</a>
+    {% if request.user.is_authenticated %}
+      <ul class="right hide-on-med-and-down">
+        <li><a href="{% url 'home:landing' %}">Projects</a></li>
+        <li><a  href="#">Reviwer Dashboard</a></li>
+        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+      </ul>
+    {% else %}
+      <ul class="right hide-on-med-and-down">
+        <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
+      </ul>
+    {% endif %}
+      <ul >
+        {% if request.user.is_authenticated %}
+      <ul id="nav-mobile" class="side-nav">
+        <<li><a href="{% url 'home:landing' %}">Projects</a></li>
+        <li><a  href="#">Reviwer Dashboard</a></li>
+        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+      </ul>
+    {% else %}
+      <ul id="nav-mobile" class="side-nav">
+        <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
+      </ul>
+    {% endif %}
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center deep-orange-text">ReviewMe</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">A place to learn by building and getting personalised feedback for your projects.</h5>
+      </div>
+      <div class="row center margin-top-100  ">
+        <a href="{% url 'projects:categories' %}" id="download-button" class="btn-large waves-effect waves-light deep-orange z-depth-3 margin-right-20">Get Started</a>
+        <a href="{{ media }}samples/reviewme.pdf" target="_blank" id="download-button" class="btn-large waves-effect waves-light deep-orange z-depth-3">View Sample Review</a>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+
+  <div class="container margin-top-25">
+    <div class="section">
+
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block left-align">
+            <h2 class="center light-blue-text"><i class="material-icons large">description</i></h2>
+            <h5 class="">Variety Of Projects</h5>
+
+            <p class="light flow-text">Complete one of our projects. We have detailed and clearly defined resources and specs that help you get better
+            	as you build.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block left-align">
+            <h2 class="center light-blue-text"><i class="material-icons large">cloud_upload</i></h2>
+            <h5 class="">Submit Your Project</h5>
+
+            <p class="light flow-text">After finishing your project and making sure that you meet all the requirements listed in the rubric all you have to do is submit your project, sit back and relax.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block left-align">
+            <h2 class="center light-blue-text"><i class="material-icons large">rate_review</i></h2>
+            <h5 class="">Personalised Feedback</h5>
+
+            <p class="light flow-text">One of our vetted reviewers will check your project for you. You will get personalised feedback from other developers who have been through the learning process.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+
+    <div class="section">
+
+    </div>
+  </div>
+
+  <footer class="page-footer transparent">
+   <div class="footer-copyright deep-orange lighten-3">
+     <div class="container">
+       <div class="row">
+         <div class="col s3 m2">
+           <a href="{% url 'info:about' %}"> About </a>
+         </div>
+         <div class="col s3 m2">
+           <a href="{% url 'users:signup_user' %}"> Register </a>
+         </div>
+         <div class="col s3 m2">
+           <a href="{% url 'info:privacy' %}"> Privacy </a>
+         </div>
+         <div class="col s3 m2">
+           ©ReviewMe
+         </div>
+       </div>
+     </div>
+   </div>
+ </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script type="text/javascript" async>
+    (function($){
+  $(function(){
+
+    $('.button-collapse').sideNav();
+
+  }); // end of document ready
+})(jQuery); // end of jQuery name space
+
+
+   $(document).ready(function() {
+    Materialize.updateTextFields();
+  });
+
+  </script>
+
+  </body>
+</html>

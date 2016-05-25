@@ -1,0 +1,149 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Topics</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+ <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+  </head>
+<body>
+ <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home:landing' %}" class="brand-logo"><i class="material-icons left medium">assignment_turned_in</i>ReviewMe</a>
+    {% if request.user.is_authenticated %}
+      <ul class="right hide-on-med-and-down">
+        <li><a href="{% url 'home:landing' %}">Projects</a></li>
+        <li><a href="{% url 'projects:reviewer_dashboard' %}">Reviwer Dashboard</a></li>
+        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+      </ul>
+    {% else %}
+      <ul class="right hide-on-med-and-down">
+        <li><a  class="btn deep-orange" href="{% url 'users:login_user' %}">Sign In</a></li>
+      </ul>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+      <ul class="side-nav" id="nav-mobile">
+        <li><a href="{% url 'home:landing' %}">Projects</a></li>
+        <li><a href="{% url 'projects:reviewer_dashboard' %}">Reviwer Dashboard</a></li>
+        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+      </ul>
+    {% else %}
+      <ul class="side-nav" id="nav-mobile">
+        <li><a  class="btn deep-orange" href="{% url 'users:login_user' %}">Sign In</a></li>
+      </ul>
+    {% endif %}
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+<main>
+  <div class="container margin-top-25">
+    <div class="row left-align">
+        {% if type == "categories" %}
+        <h2 class="thin">Fields of Study</h2>
+        {% elif type == "subcategories" %}
+        <h2 class="thin">Topics</h2>
+        {% else %}
+        <h2 class="thin">Projects</h2>
+        {% endif %}
+    </div>
+    <div class="row margin-top-25">
+        {% for item in items %}
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-content white-text category-description">
+              <i class="material-icons activator light-blue-text hover text-darken-2 right">more_vert</i>
+              <span class="card-title light-blue-text text-darken-2 flow-text">{{ item.name }}</span>
+<!--               <p class="light-blue-text">{{ item.description }}</p>
+ -->            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4 flow-text"><i class="material-icons right">close</i></span>
+              <p>{{ item.name }}</p>
+              <p>{{ item.description }}</p>
+            </div>
+            <div class="card-action">
+              {% if type == "categories" %}
+               <a href="{% url 'projects:sub_categories' item.id %}" class="deep-orange-text">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
+              {% elif type == "subcategories" %}
+               <a href="{% url 'projects:projects' item.id %}" class="deep-orange-text">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
+              {% else %}
+                  {% if item.status == "Yes" %}
+                 <a href="{% url 'projects:project_detail' item.id %}" class="teal-text">Finished Project<i class="material-icons right">beenhere</i></a>
+                  {% elif item.status == "Wait" %}
+                  <a href="{% url 'projects:project_detail' item.id %}" class="amber-text">Awaiting Review<i class="material-icons right">timer</i></a>
+                  {% elif item.status == "Redo" %}
+                  <a href="{% url 'projects:project_detail' item.id %}" class="red-text">Resubmit<i class="material-icons right">assignment_late</i></a>
+                  {% else %}
+                  <a href="{% url 'projects:project_detail' item.id %}" class="deep-orange-text">Start<i class="material-icons right">trending_flat</i></a>
+                  {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+  </div>
+  </main>
+
+  <footer class="page-footer transparent">
+   <div class="footer-copyright deep-orange lighten-3">
+     <div class="container">
+       <div class="row">
+         <div class="col s3 m2">
+           <a href="{% url 'info:about' %}"> About </a>
+         </div>
+         <div class="col s3 m2">
+           <a href="{% url 'users:signup_user' %}"> Register </a>
+         </div>
+         <div class="col s3 m2">
+           <a href="{% url 'info:privacy' %}"> Privacy </a>
+         </div>
+         <div class="col s3 m2">
+           ©ReviewMe
+         </div>
+       </div>
+     </div>
+   </div>
+ </footer>
+
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script type="text/javascript" async>
+    (function($){
+  $(function(){
+
+    $('.button-collapse').sideNav();
+
+  }); // end of document ready
+})(jQuery); // end of jQuery name space
+
+
+   $(document).ready(function() {
+    Materialize.updateTextFields();
+  });
+
+   $(".dropdown-button").dropdown();
+   $("#beReviewer").on('click', function(e) {
+      $('#displayThis').text('Reviewer Dashboard')
+   })
+   $("#beStudent").on('click', function(e) {
+      $('#displayThis').text('Student Dashboard')
+   })
+  </script>
+  {% if messages %}
+      {% for message in messages %}
+      <script>Materialize.toast('{{ message }}', 4000, 'rounded teal')</script>
+      {% endfor %}
+  </ul>
+  {% endif %}
+
+  </body>
+</html>
