@@ -33,3 +33,7 @@
  .activator {
  	cursor: pointer;
  }
+
+ .card-title {
+ 	line-height: 30px;
+ }
