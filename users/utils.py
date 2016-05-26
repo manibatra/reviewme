@@ -26,7 +26,7 @@ def send_confirmation_email(customer_email, emailHTML):
 		return requests.post(
 				settings.MAILGUN_URL + "/messages",
 				auth=("api", settings.MAILGUN_API_KEY),
-				data={"from": "Deliverawr <mailgun@" + settings.MAILGUN_DOMAIN + ">",
+				data={"from": "ReviewMe <mailgun@" + settings.MAILGUN_DOMAIN + ">",
 							"to": [customer_email],
 							"subject": "Confirm Email Address",
 							"html": emailHTML
