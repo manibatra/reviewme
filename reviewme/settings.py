@@ -187,6 +187,12 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
+try:
+    LENCRYPT_KEY = os.environ.get("LENCRYPT_KEY")
+
+except:
+    LENCRYPT_KEY = "DevelopmentServer"
+
 
 #raven settings
 try:#sentry settings
