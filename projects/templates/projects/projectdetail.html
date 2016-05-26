@@ -65,7 +65,7 @@
 
       <div class="cd-timeline-content">
        <h5>Example</h5>
-        <h5 class="thin"><blockquote class="green-border">Have a look at the example</blockquote></h5>
+        <h5 class="thin"><blockquote class="green-border">An example of the project is included below. Check it out:</blockquote></h5>
         <a href="{{project.example}}" class="waves-effect waves-light btn" target="_blank">Example</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
@@ -91,7 +91,7 @@
 
       <div class="cd-timeline-content">
         <h5>Resources</h5>
-        <h5 class="thin"><blockquote class="yellow-border">Checkout the follwing resources that will help you with the background skills required to completet this project</blockquote></h5>
+        <h5 class="thin"><blockquote class="yellow-border">Checkout the follwing resources that will help you with the background skills required to completet this project:</blockquote></h5>
         {% for item in resources %}
          <div class="col s12 m12 break-word">
            <h5 class="thin"><a href="{{item.link}}" class="flow-text">{{item.link}}</a></h5>
@@ -107,7 +107,7 @@
 
       <div class="cd-timeline-content">
         <h5>History</h5>
-        <h5 class="thin"><blockquote class="yellow-border">You can access your past history from here</blockquote></h5>
+        <h5 class="thin"><blockquote class="yellow-border">You can access your past history from here:</blockquote></h5>
         {% for item in history %}
           {% if item.review_files %}
           <div class="row">
@@ -130,7 +130,7 @@
 
       <div class="cd-timeline-content">
         <h5>Rubric</h5>
-        <h5 class="thin"><blockquote class="yellow-border">Have a look at the rubric. You must meet all the specifications specified in the rubric.</blockquote></h5>
+        <h5 class="thin"><blockquote class="yellow-border">Have a look at the rubric. You must meet all the specifications specified in the rubric:</blockquote></h5>
         <a href="{% url 'projects:project_specs' project.id %}" class="waves-effect waves-light btn" target="_blank">Rubric</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
@@ -144,7 +144,7 @@
         <h5>Upload</h5>
         <form id="submitForm" action="{% url 'projects:submit_project' project.id %}" enctype="multipart/form-data" method="post">
             {% csrf_token %}
-        <h5 class="thin"><blockquote class="red-border">Zip your files and attatch them here</blockquote></h5>
+        <h5 class="thin"><blockquote class="red-border">Zip your files and attatch them here:</blockquote></h5>
         <div class="file-field input-field">
           <div class="btn">
             <span>Choose File</span>
@@ -164,7 +164,7 @@
 
       <div class="cd-timeline-content">
         <h5>Optional message for reviewer</h5>
-        <h5 class="thin"><blockquote class="red-border">Leave an optional message for the reviewer. It can be something relevant to the project or just a hello. </blockquote></h5>
+        <h5 class="thin"><blockquote class="red-border">Leave an optional message for the reviewer. It can be something relevant to the project or just a hello: </blockquote></h5>
         <div class="row">
           <div class="input-field col s12 m12">
             <textarea id="icon_prefix2" name="notes" class="materialize-textarea"></textarea>
