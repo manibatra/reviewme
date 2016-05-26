@@ -49,9 +49,13 @@
       <div class="row center">
         <h5 class="header col s12 light">A place to learn by building and getting personalised feedback for your projects.</h5>
       </div>
-      <div class="row center margin-top-100  ">
-        <a href="{% url 'projects:categories' %}" id="download-button" class="btn-large waves-effect waves-light deep-orange z-depth-3 margin-right-20">Get Started</a>
-        <a href="{{ media }}samples/reviewme.pdf" target="_blank" id="download-button" class="btn-large waves-effect waves-light deep-orange z-depth-3">View Sample Review</a>
+      <div class="row center margin-top-50 ">
+        <div class="col s12 m6 push-m1">
+          <a href="{% url 'projects:categories' %}" id="download-button" class="btn-large waves-effect waves-light deep-orange z-depth-3 margin-top-25">Get Started</a>
+        </div>
+        <div class="col s12 m6 pull-m1">
+          <a href="{{ media }}samples/reviewme.pdf" target="_blank" id="download-button" class="btn-large waves-effect waves-light deep-orange z-depth-3 margin-top-25">View Sample Review</a>
+        </div>
       </div>
       <br><br>
 
@@ -66,7 +70,7 @@
         <div class="col s12 m4">
           <div class="icon-block left-align">
             <h2 class="center light-blue-text"><i class="material-icons large">description</i></h2>
-            <h5 class="">Variety Of Projects</h5>
+            <h5 class="center-align">Variety Of Projects</h5>
 
             <p class="light flow-text">Complete one of our projects. We have detailed and clearly defined resources and specs that help you get better
             	as you build.</p>
@@ -76,7 +80,7 @@
         <div class="col s12 m4">
           <div class="icon-block left-align">
             <h2 class="center light-blue-text"><i class="material-icons large">cloud_upload</i></h2>
-            <h5 class="">Submit Your Project</h5>
+            <h5 class="center-align">Submit Your Project</h5>
 
             <p class="light flow-text">After finishing your project and making sure that you meet all the requirements listed in the rubric all you have to do is submit your project, sit back and relax.</p>
           </div>
@@ -85,7 +89,7 @@
         <div class="col s12 m4">
           <div class="icon-block left-align">
             <h2 class="center light-blue-text"><i class="material-icons large">rate_review</i></h2>
-            <h5 class="">Personalised Feedback</h5>
+            <h5 class="center-align">Personalised Feedback</h5>
 
             <p class="light flow-text">One of our vetted reviewers will check your project for you. You will get personalised feedback from other developers who have been through the learning process.</p>
           </div>
