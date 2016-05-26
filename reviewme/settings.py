@@ -191,7 +191,7 @@ try:
     LENCRYPT_KEY = os.environ.get("LENCRYPT_KEY")
 
 except:
-    LENCRYPT_KEY = "DevelopmentServer"
+    pass
 
 
 #raven settings
