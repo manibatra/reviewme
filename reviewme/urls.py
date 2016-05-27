@@ -26,7 +26,7 @@ from home import views
 
 urlpatterns = [
 	url(r'^', include('home.urls', namespace="home")),
-    url(r'^.well-known/acme-challenge/(?P<id>.*)$', global_views.letsencrypt),
+    url(r'^.well-known/acme-challenge/H6AF_AQPFpNVZqDrKq0qTwuV7Ry9T7YBHv1bcpbg0vI$', global_views.letsencrypt),
     url(r'^{}/admin/'.format(settings.ADMIN_URL_PATH), admin.site.urls),
     url(r'^users/', include('users.urls', namespace="users")),
     url(r'^content/',include('projects.urls', namespace="projects")),
