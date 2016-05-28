@@ -91,7 +91,7 @@
 
       <div class="cd-timeline-content">
         <h5>Resources</h5>
-        <h5 class="thin"><blockquote class="yellow-border">Checkout the follwing resources that will help you with the background skills required to completet this project:</blockquote></h5>
+        <h5 class="thin"><blockquote class="yellow-border">Checkout the following resources that will help you with the background knowledge required to complete this project:</blockquote></h5>
         {% for item in resources %}
          <div class="col s12 m12 break-word">
            <h5 class="thin"><a href="{{item.link}}" class="flow-text">{{item.link}}</a></h5>
@@ -130,7 +130,7 @@
 
       <div class="cd-timeline-content">
         <h5>Rubric</h5>
-        <h5 class="thin"><blockquote class="yellow-border">Have a look at the rubric. You must meet all the specifications specified in the rubric:</blockquote></h5>
+        <h5 class="thin"><blockquote class="yellow-border">Have a look at the rubric. You must meet all the specifications in the rubric:</blockquote></h5>
         <a href="{% url 'projects:project_specs' project.id %}" class="waves-effect waves-light btn" target="_blank">Rubric</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
@@ -144,7 +144,7 @@
         <h5>Upload</h5>
         <form id="submitForm" action="{% url 'projects:submit_project' project.id %}" enctype="multipart/form-data" method="post">
             {% csrf_token %}
-        <h5 class="thin"><blockquote class="red-border">Zip your files and attatch them here:</blockquote></h5>
+        <h5 class="thin"><blockquote class="red-border">Zip your files and upload them here:</blockquote></h5>
         <div class="file-field input-field">
           <div class="btn">
             <span>Choose File</span>
