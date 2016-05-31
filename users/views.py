@@ -120,7 +120,7 @@ def verification_confirm(request, uuid, ver_code):
 
 #method to complete the verification process
 def verification_complete(request):
-	context = { 'text' : 'Your email has been confirmed. You can login and start using ReviewMe now.'
+	context = { 'text' : 'Your email has been confirmed. You can now login and start using ReviewMe now.'
 					, 'heading' : 'Email Address Confirmed' }
 	return render(request, 'users/verification.html', context)
 
