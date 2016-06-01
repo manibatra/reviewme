@@ -157,7 +157,7 @@
         <h5>Upload</h5>
         <form id="submitForm" action="{% url 'projects:submit_project' project.id %}" enctype="multipart/form-data" method="post">
             {% csrf_token %}
-        <h5 class="thin"><blockquote class="red-border">When you're ready, ensure all your files are zipped. Only zipped files will be accepeted for submission:</blockquote></h5>
+        <h5 class="thin"><blockquote class="red-border">When you're ready, ensure all your files are zipped. Only zipped files will be accepted for submission:</blockquote></h5>
         <div class="file-field input-field">
           <div class="btn">
             <span>Choose File</span>
@@ -227,7 +227,7 @@
            <a href="{% url 'info:privacy' %}"> Privacy </a>
          </div>
          <div class="col s3 m2">
-           ©ReviewMe
+           © ReviewMe 2016
          </div>
        </div>
      </div>
