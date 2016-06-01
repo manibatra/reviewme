@@ -12,6 +12,19 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
   <link rel="stylesheet" href="{% static 'css/helper.css' %}">
   <link rel="stylesheet" href="{% static 'projects/css/style.css' %}">
+  {% if debug %}
+
+  {% else %}
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-74454041-4', 'auto');
+  ga('send', 'pageview');
+  </script>
+  {% endif %}
 
   </head>
 <body>
@@ -20,8 +33,8 @@
     {% if request.user.is_authenticated %}
       <ul class="right hide-on-med-and-down">
         <li><a href="{% url 'home:landing' %}">Projects</a></li>
-        <li><a href="{% url 'projects:reviewer_dashboard' %}">Reviwer Dashboard</a></li>
-        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+<!--         <li><a href="">Reviwer Dashboard</a></li>
+ -->        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
     {% else %}
       <ul class="right hide-on-med-and-down">
@@ -31,8 +44,8 @@
     {% if request.user.is_authenticated %}
       <ul class="side-nav" id="nav-mobile">
         <li><a href="{% url 'home:landing' %}">Projects</a></li>
-        <li><a href="{% url 'projects:reviewer_dashboard' %}">Reviwer Dashboard</a></li>
-        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+<!--         <li><a href="">Reviwer Dashboard</a></li>
+ -->        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
     {% else %}
       <ul class="side-nav" id="nav-mobile">
@@ -94,7 +107,7 @@
         <h5 class="thin"><blockquote class="yellow-border">Checkout the following resources that will help you with the background knowledge required to complete this project:</blockquote></h5>
         {% for item in resources %}
          <div class="col s12 m12 break-word">
-           <h5 class="thin"><a href="{{item.link}}" class="flow-text">{{item.link}}</a></h5>
+           <h5 class="thin"><a href="{{item.link}}" class="flow-text" target="_blank">{{item.link}}</a></h5>
         </div>
         {% endfor %}
       </div> <!-- cd-timeline-content -->
