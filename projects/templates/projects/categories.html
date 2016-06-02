@@ -57,15 +57,24 @@
 <main>
   <div class="container margin-top-25">
     <div class="row left-align">
-        {% if type == "categories" %}
-        <h2 class="thin">Fields of Study</h2>
-        {% elif type == "subcategories" %}
-        <h2 class="thin">Topics</h2>
-        {% else %}
-        <h2 class="thin">Projects</h2>
-        {% endif %}
+        <div class="nav-wrapper grey lighten-5">
+          {% if type == "categories" %}
+          <a href="{% url 'projects:categories' %}" class="breadcrumb big current grey-text text-darken-4">Subjects</a>
+          {% elif type == "subcategories" %}
+          <a href="{% url 'projects:categories' %}" class="breadcrumb big thin grey-text">Subjects</a>
+          {% with items|first as item %}
+          <a href="#!" class="breadcrumb big current grey-text text-darken-4">{{item.category.name|title}}</a>
+          {% endwith %}
+          {% else %}
+          <a href="{% url 'projects:categories' %}" class="breadcrumb big thin grey-text">Subjects</a>
+          {% with items|first as item %}
+          <a href="{% url 'projects:sub_categories' item.sub_category.id %}" class="breadcrumb big thin grey-text">{{item.sub_category.category.name|title}}</a>
+          <a href="#!" class="breadcrumb big current grey-text text-darken-4">{{item.sub_category.name|title}}</a>
+          {% endwith %}
+          {% endif %}
+        </div>
     </div>
-    <div class="row margin-top-25">
+    <div class="row margin-top-50">
         {% for item in items %}
         <div class="col s12 m4">
           <div class="card">
