@@ -42,6 +42,20 @@
  	cursor: pointer;
  }
 
+ .current {
+ 	font-weight: 300;
+ }
+
 .card .card-content .card-title {
  	line-height: 30px;
  }
+
+.big {
+	font-size: 32px;
+}
+
+.breadcrumb:before {
+	color: grey;
+	font-size: 32px;
+	font-weight: 200;
+}
