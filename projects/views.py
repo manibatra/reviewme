@@ -67,7 +67,7 @@ def projectDetail(request, project_id):
 	context['project'] = current_project
 	context['status'] = "No"
 	context['objectives'] = Objective.objects.filter(project=current_project)
-	context['resources'] = Resource.objects.filter(project=current_project)
+	context['resources'] = Resource.objects.filter(project=current_project).order_by('id')
 	if request.user.is_authenticated():
 		current_user = User.objects.get(pk=request.user.id)
 		all_submissions = Submission.objects.filter(student=current_user).filter(project=current_project).filter(returned_on__isnull=False)
