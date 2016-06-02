@@ -55,6 +55,8 @@ class Spec(models.Model):
 class Resource(models.Model):
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
 	link = models.URLField(null=True, blank=True)
+	title = models.TextField(null=True, blank=True)
+	description = models.TextField(null=True, blank=True)
 
 	def __unicode__(self):
 		return self.project.name

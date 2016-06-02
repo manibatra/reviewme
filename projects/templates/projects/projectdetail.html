@@ -108,11 +108,13 @@
       <div class="cd-timeline-content">
         <h5>Resources</h5>
         <h5 class="flow-text"><blockquote class="yellow-border">Checkout the following resources that will help you with the background knowledge required to complete this project:</blockquote></h5>
+        <ol class="browser-default disc">
         {% for item in resources %}
          <div class="col s12 m12 break-word">
-           <h5 class="thin"><a href="{{item.link}}" class="flow-text" target="_blank">{{item.link}}</a></h5>
+           <li class="flow-text"><a href="{{item.link}}" class="flow-text" target="_blank">{{item.title|title}} : {{item.description}}</a></li>
         </div>
         {% endfor %}
+        </ol>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
