@@ -57,13 +57,18 @@
 <main>
   <div class="container margin-top-25">
     <div class="row left-align">
-        {% if type == "categories" %}
-        <h2 class="thin">Fields of Study</h2>
-        {% elif type == "subcategories" %}
-        <h2 class="thin">Topics</h2>
-        {% else %}
-        <h2 class="thin">Projects</h2>
-        {% endif %}
+        <div class="nav-wrapper grey lighten-5">
+          {% if type == "categories" %}
+          <a href="#!" class="breadcrumb big current grey-text text-darken-4">Subjects</a>
+          {% elif type == "subcategories" %}
+          <a href="#!" class="breadcrumb big thin grey-text">Subjects</a>
+          <a href="#!" class="breadcrumb big current grey-text text-darken-4">Topics</a>
+          {% else %}
+          <a href="#!" class="breadcrumb big thin grey-text">Subjects</a>
+          <a href="#!" class="breadcrumb big thin grey-text">Topics</a>
+          <a href="#!" class="breadcrumb big current grey-text text-darken-4">Projects</a>
+          {% endif %}
+        </div>
     </div>
     <div class="row margin-top-25">
         {% for item in items %}
