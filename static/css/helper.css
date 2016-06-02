@@ -63,3 +63,8 @@
 	font-size: 22px;
 	font-weight: 200;
 }
+
+/*styles for project detail page*/
+.disc {
+	list-style: disc;
+}
