@@ -22,6 +22,10 @@
 .break-word {
 	word-wrap: break-word;
 }
+
+.make-block {
+	display: block;
+}
 /*make footer stick to bottom*/
  body {
     display: flex;
