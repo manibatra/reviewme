@@ -51,11 +51,11 @@
  }
 
 .big {
-	font-size: 32px;
+	font-size: 22px;
 }
 
 .breadcrumb:before {
 	color: grey;
-	font-size: 32px;
+	font-size: 22px;
 	font-weight: 200;
 }
