@@ -59,14 +59,18 @@
     <div class="row left-align">
         <div class="nav-wrapper grey lighten-5">
           {% if type == "categories" %}
-          <a href="#!" class="breadcrumb big current grey-text text-darken-4">Subjects</a>
+          <a href="{% url 'projects:categories' %}" class="breadcrumb big current grey-text text-darken-4">Subjects</a>
           {% elif type == "subcategories" %}
-          <a href="#!" class="breadcrumb big thin grey-text">Subjects</a>
-          <a href="#!" class="breadcrumb big current grey-text text-darken-4">Topics</a>
+          <a href="{% url 'projects:categories' %}" class="breadcrumb big thin grey-text">Subjects</a>
+          {% with items|first as item %}
+          <a href="#!" class="breadcrumb big current grey-text text-darken-4">{{item.category.name|title}}</a>
+          {% endwith %}
           {% else %}
-          <a href="#!" class="breadcrumb big thin grey-text">Subjects</a>
-          <a href="#!" class="breadcrumb big thin grey-text">Topics</a>
-          <a href="#!" class="breadcrumb big current grey-text text-darken-4">Projects</a>
+          <a href="{% url 'projects:categories' %}" class="breadcrumb big thin grey-text">Subjects</a>
+          {% with items|first as item %}
+          <a href="{% url 'projects:sub_categories' item.sub_category.id %}" class="breadcrumb big thin grey-text">{{item.sub_category.category.name|title}}</a>
+          <a href="#!" class="breadcrumb big current grey-text text-darken-4">{{item.sub_category.name|title}}</a>
+          {% endwith %}
           {% endif %}
         </div>
     </div>
