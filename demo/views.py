@@ -6,7 +6,7 @@ from django.conf import settings
 def begin(request):
 	context = {}
 	context['media'] = settings.MEDIA_URL
-	current_project = Project.objects.get(pk=1)
+	current_project = Project.objects.order_by('id').first()
 	context['project'] = current_project
 	context['status'] = "No"
 	context['objectives'] = Objective.objects.filter(project=current_project)
