@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^.well-known/acme-challenge/(?P<id>.*)$', global_views.letsencrypt),
     url(r'^{}/admin/'.format(settings.ADMIN_URL_PATH), admin.site.urls),
     url(r'^users/', include('users.urls', namespace="users")),
+    url(r'^demo/', include('demo.urls', namespace="demo")),
     url(r'^content/',include('projects.urls', namespace="projects")),
     url(r'^info/',include('info.urls', namespace="info")),
     url(r'^users/reset-password-done/$', auth_views.password_reset_done, {'template_name': 'users/password_reset_done.html'}, name="password_reset_done"),
