@@ -58,6 +58,10 @@
 	font-size: 22px;
 }
 
+.little-big {
+	font-size: 18px;
+}
+
 .breadcrumb:before {
 	color: grey;
 	font-size: 22px;

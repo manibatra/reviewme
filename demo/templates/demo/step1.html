@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Step 1</title>
+  <title>Start</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -56,23 +56,49 @@
     </div>
   </nav>
 
+  <div class="row pin-top">
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#test1">Start</a></li>
+        <li class="tab col s3"><a href="#test2" id="step2">Submit</a></li>
+        <li class="tab col s3"><a href="{% url 'demo:middle' %}" id="step3">Review</a></li>
+      </ul>
+    <div id="test1" class="col s12 m6 offset-m3">
+      <div class="card margin-top-0">
+            <div class="card-content grey-text text-darken-4">
+              <span class="card-title" class="flow-text">Start a project</span>
+              <p class="little-big">Read through the <a href="#description">description</a> and <a href="#objectives">objectives</a>. Check out the <a href="#example">example</a> and  <a href="#resources">resources</a>. Make sure you go through the specs listed down in the <a href="#rubric">rubric</a>.</p>
+            </div>
+        </div>
+    </div>
+    <div id="test2" class="col s12 m6 offset-m3">
+      <div class="card margin-top-0">
+            <div class="card-content grey-text text-darken-4">
+              <span class="card-title" class="flow-text">Submit the project</span>
+              <p class="little-big">After you have created the required files on your computer, zip them together and submit the zip file for
+              a personalised review from our experienced and vetted reviwers. For this demo attatch any file and click on "Submit"</p>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
   <main>
        <div class="container margin-top-25">
        <div class="row left-align">
         <h2 class="thin">{{ project.name }}</h2>
       </div>
         <section id="cd-timeline" class="cd-container">
-    <div class="cd-timeline-block">
+    <div class="cd-timeline-block" id="description">
       <div class="cd-timeline-img cd-picture">
       </div> <!-- cd-timeline-img -->
 
-      <div class="cd-timeline-content">
+      <div class="cd-timeline-content" >
        <h5>Project Description</h5>
         <h5 class="flow-text"><blockquote class="green-border">{{ project.description }}</blockquote></h5>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-     <div class="cd-timeline-block">
+     <div class="cd-timeline-block" id="example">
       <div class="cd-timeline-img cd-picture">
       </div> <!-- cd-timeline-img -->
 
@@ -83,7 +109,7 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-    <div class="cd-timeline-block">
+    <div class="cd-timeline-block" id="objectives">
       <div class="cd-timeline-img cd-picture">
       </div> <!-- cd-timeline-img -->
 
@@ -101,7 +127,7 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-     <div class="cd-timeline-block">
+     <div class="cd-timeline-block" id="resources">
       <div class="cd-timeline-img cd-location">
       </div> <!-- cd-timeline-img -->
 
@@ -118,31 +144,8 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-    {% if history %}
-    <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-location">
-      </div> <!-- cd-timeline-img -->
 
-      <div class="cd-timeline-content">
-        <h5>History</h5>
-        <h5 class="flow-text"><blockquote class="yellow-border">You can access your past history from here:</blockquote></h5>
-        {% for item in history %}
-          {% if item.review_files %}
-          <div class="row">
-            <div class="col s12 m12">
-              <a href="{{item.review_files.url}}" class="waves-effect waves-light btn">
-              {{ item.submitted_on|date:"D d M Y"}}, {{ item.submitted_on|time:"g:i A"}}</a>
-              <h5 class="flow-text"> Reviewer Comment : {{ item.feedback }}</h5>
-            </div>
-          </div>
-          {% endif %}
-        {% endfor %}
-      </div> <!-- cd-timeline-content -->
-    </div> <!-- cd-timeline-block -->
-
-    {% endif %}
-
-    <div class="cd-timeline-block">
+    <div class="cd-timeline-block" id="rubric">
       <div class="cd-timeline-img cd-location">
       </div> <!-- cd-timeline-img -->
 
@@ -258,13 +261,13 @@
     Materialize.updateTextFields();
   });
 
+    $('#step3').on('click', function(e) {
+    e.preventDefault();
+    window.location.href="/demo/end";
+   });
+
   </script>
-  {% if messages %}
-      {% for message in messages %}
-      <script>Materialize.toast('{{ message }}', 4000, 'rounded deep-orange lighten-1 flow-text')</script>
-      {% endfor %}
-  </ul>
-  {% endif %}
+
 
   </body>
 </html>

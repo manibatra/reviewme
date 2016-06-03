@@ -11,9 +11,6 @@ def begin(request):
 	context['resources'] = Resource.objects.filter(project=current_project).order_by('id')
 	return render(request, 'demo/step1.html', context)
 
-def middle(request):
-	context = {}
-	return render(request, 'demo/step2.html', context)
 
 def end(request):
 	context = {}
