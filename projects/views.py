@@ -27,7 +27,7 @@ def showSubCategories(request, category_id):
 
 def showProjects(request, subcategory_id):
 	context = {}
-	all_projects = Project.objects.filter(sub_category=subcategory_id)
+	all_projects = Project.objects.filter(sub_category=subcategory_id).order_by('id')
 	context['type'] = 'projects'
 	context['items'] = all_projects
 	if request.user.is_authenticated():
