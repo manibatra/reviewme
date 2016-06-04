@@ -154,6 +154,7 @@
     </div> <!-- cd-timeline-block -->
 
     {% endif %}
+<form id="submitForm" action="{% url 'projects:submit_project' project.id %}" enctype="multipart/form-data" method="post">
 
     {% if status == "No" %}
 
@@ -179,7 +180,6 @@
 
       <div class="cd-timeline-content">
         <h5>Upload</h5>
-        <form id="submitForm" action="{% url 'projects:submit_project' project.id %}" enctype="multipart/form-data" method="post">
             {% csrf_token %}
         <h5 class="flow-text"><blockquote class="red-border">Create the required files in your favourite text editor. When you're ready, ensure all your files are zipped together. Only <strong>.zip</strong> files will be accepted for submission:</blockquote></h5>
         <div class="file-field input-field">
