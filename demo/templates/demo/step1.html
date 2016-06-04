@@ -95,10 +95,10 @@
             </div>
             <div class="card-action right-align">
               {% if request.user.is_authenticated %}
-              <a href="{% url 'users:signup_user' %}" class="waves-effect waves-light btn orange" id="step2Button">OK, GOT IT!<i class="material-icons right">
+              <a href="{% url 'projects:categories' %}" class="waves-effect waves-light btn orange" id="step2Button">OK, GOT IT!<i class="material-icons right">
               check_circle</i></a>
               {% else %}
-              <a href="{% url 'projects:categories' %}" class="waves-effect waves-light btn orange" id="step2Button">OK, GOT IT!<i class="material-icons right">
+              <a href="{% url 'users:signup_user' %}" class="waves-effect waves-light btn orange" id="step2Button">OK, GOT IT!<i class="material-icons right">
               check_circle</i></a>
               {% endif %}
             </div>
@@ -330,7 +330,7 @@ $(document).ready(function(){
       $('#history').hide();
        $('#submit').show();
        $('#done').hide();
-       $("body").scrollTop($("#resources").offset().top)
+       $("body").scrollTop($("#rubric").offset().top)
    });
 
 

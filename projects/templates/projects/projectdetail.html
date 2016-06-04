@@ -118,7 +118,20 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-    {% if history %}
+
+
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-location">
+      </div> <!-- cd-timeline-img -->
+
+      <div class="cd-timeline-content">
+        <h5>Rubric</h5>
+        <h5 class="flow-text"><blockquote class="yellow-border">Have a look at the rubric. You must meet all the specifications in the rubric:</blockquote></h5>
+        <a href="{% url 'projects:project_specs' project.id %}" class="waves-effect waves-light btn" target="_blank">Rubric</a>
+      </div> <!-- cd-timeline-content -->
+    </div> <!-- cd-timeline-block -->
+
+  {% if history %}
     <div class="cd-timeline-block">
       <div class="cd-timeline-img cd-location">
       </div> <!-- cd-timeline-img -->
@@ -142,18 +155,7 @@
 
     {% endif %}
 
-    <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-location">
-      </div> <!-- cd-timeline-img -->
-
-      <div class="cd-timeline-content">
-        <h5>Rubric</h5>
-        <h5 class="flow-text"><blockquote class="yellow-border">Have a look at the rubric. You must meet all the specifications in the rubric:</blockquote></h5>
-        <a href="{% url 'projects:project_specs' project.id %}" class="waves-effect waves-light btn" target="_blank">Rubric</a>
-      </div> <!-- cd-timeline-content -->
-    </div> <!-- cd-timeline-block -->
-
-
+    {% if status == "No" %}
     <div class="cd-timeline-block">
       <div class="cd-timeline-img cd-movie">
       </div> <!-- cd-timeline-img -->
@@ -191,6 +193,7 @@
         </div>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
+    {% endif %}
 
   </section> <!-- cd-timeline -->
       <div class="row margin-top-25">
