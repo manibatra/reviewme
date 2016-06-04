@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'storages',
     'raven.contrib.django.raven_compat',
     'info',
+    'demo',
 ]
 
 MIDDLEWARE_CLASSES = [
