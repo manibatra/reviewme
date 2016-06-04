@@ -105,7 +105,6 @@ def submitProject(request, project_id):
 			project = Project.objects.get(pk=project_id)
 			user = User.objects.get(pk=request.user.id)
 			new_submission = Submission(project=project, student=user, notes=request.POST['notes'])
-			new_submission.save()
 			try:
 				new_submission.submitted_files = request.FILES['projectzip']
 			except:
