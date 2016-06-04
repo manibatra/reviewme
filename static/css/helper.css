@@ -37,6 +37,10 @@
     flex: 1 0 auto;
  }
 
+ .front {
+ 	z-index: 100;
+ }
+
  /*styles for Category and subcategory pages*/
  .category-description {
  	height: 200px;

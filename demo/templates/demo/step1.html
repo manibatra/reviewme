@@ -56,36 +56,46 @@
     </div>
   </nav>
 
-  <div class="row">
+  <div class="row tabs-wrapper front">
       <ul class="tabs">
         <li class="tab col s3"><a class="active" href="#test1" id="step1">Start</a></li>
         <li class="tab col s3"><a href="#test2" id="step2">Submit</a></li>
         <li class="tab col s3"><a href="#test3" id="step3">Review</a></li>
       </ul>
-    <div id="test1" class="col s12 m6 offset-m3">
+    <div id="test1" class="col s12 m8 offset-m2">
       <div class="card margin-top-0">
             <div class="card-content grey-text text-darken-4">
               <span class="card-title" class="flow-text">Start a project</span>
-              <p class="little-big">After you have choosen the project that you wish to attempt, read through the <a href="#description">description</a> and <a href="#objectives">objectives</a>. Check out the <a href="#example">example</a> and  <a href="#resources">resources</a>. Make sure you go through the specs listed down in the <a href="#rubric">rubric</a> before you start working on the project.</p>
+              <p class="little-big">After you have choosen the project that you wish to attempt, read through the <strong>Description</strong> and <strong>Objectives</strong>. Check out the <strong>Example</strong> and  <strong>Resources</strong>. Make sure you go through the specs listed down in the <strong>Rubric</strong> before you start working on the project.</p>
             </div>
+            <div class="card-action right-align">
+              <a href="#resources" class="waves-effect waves-light btn" id="step1Button">Next<i class="material-icons right">trending_flat</i></a>
+            </div>
+
         </div>
     </div>
-    <div id="test2" class="col s12 m6 offset-m3">
+    <div id="test2" class="col s12 m8 offset-m2">
       <div class="card margin-top-0">
             <div class="card-content grey-text text-darken-4">
               <span class="card-title" class="flow-text">Submit the project</span>
               <p class="little-big">After you have created the required files on your computer, zip them together and submit the zip file for
-              a personalised review from our experienced and vetted reviwers. For this demo attatch any file and click on "<a href="#submit">Submit</a>"</p>
+              a personalised review from our experienced and vetted reviwers. For this demo attatch any file and click on "<strong>Submit</strong>"</p>
+            </div>
+            <div class="card-action right-align">
+              <a href="#resources" class="waves-effect waves-light btn" id="step2Button">Next<i class="material-icons right">trending_flat</i></a>
             </div>
         </div>
     </div>
-    <div id="test3" class="col s12 m6 offset-m3">
+    <div id="test3" class="col s12 m8 offset-m2">
       <div class="card margin-top-0">
             <div class="card-content grey-text text-darken-4">
               <span class="card-title" class="flow-text">Read the review</span>
               <p class="little-big">And just like that one of our experienced and vetted reviewers has reviewed your submission. You can
-              download the annotated code from the <a href="#history">history</a> section. If you did not meet the specifications mentioned
-              in the <a href="#rubric">rubric</a> you will have a chance to resubmit your project with corrections.</p>
+              download the annotated code from the <strong>Reviews</strong> section. If you did not meet the specifications mentioned
+              in the <strong>Rubric</strong> you will have a chance to resubmit your project with corrections.</p>
+            </div>
+            <div class="card-action right-align">
+              <a href="{% url 'users:signup_user' %}" class="waves-effect waves-light btn" id="step2Button">OK, GOT IT!<i class="material-icons right">check_circle</i></a>
             </div>
         </div>
     </div>
@@ -119,7 +129,7 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-    <div class="cd-timeline-block" id="objectives">
+    <div class="cd-timeline-block scrollspy" id="objectives">
       <div class="cd-timeline-img cd-picture">
       </div> <!-- cd-timeline-img -->
 
@@ -137,7 +147,7 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-     <div class="cd-timeline-block" id="resources">
+     <div class="cd-timeline-block scrollspy" id="resources">
       <div class="cd-timeline-img cd-location">
       </div> <!-- cd-timeline-img -->
 
@@ -154,23 +164,6 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-     <div class="cd-timeline-block" id="history" hidden="true">
-      <div class="cd-timeline-img cd-location">
-      </div> <!-- cd-timeline-img -->
-
-      <div class="cd-timeline-content">
-        <h5>History</h5>
-        <h5 class="flow-text"><blockquote class="yellow-border">You can access your past review history from here:</blockquote></h5>
-          <div class="row">
-            <div class="col s12 m12">
-              <a href="{{ media }}samples/reviewme.pdf" target="_blank" class="waves-effect waves-light btn">
-              Tue 4/5/2016, 9 : 00 AM</a>
-              <h5 class="flow-text"> Reviewer Comment : Excellent job on your first project :)</h5>
-            </div>
-          </div>
-      </div> <!-- cd-timeline-content -->
-    </div> <!-- cd-timeline-block -->
-
 
     <div class="cd-timeline-block" id="rubric">
       <div class="cd-timeline-img cd-location">
@@ -183,9 +176,27 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
+    <div class="cd-timeline-block" id="history" hidden="true">
+      <div class="cd-timeline-img cd-location">
+      </div> <!-- cd-timeline-img -->
+
+      <div class="cd-timeline-content">
+        <h5>Reviews</h5>
+        <h5 class="flow-text"><blockquote class="yellow-border">You can access your past review history from here:</blockquote></h5>
+          <div class="row">
+            <div class="col s12 m12">
+              <a href="{{ media }}samples/reviewme.pdf" target="_blank" class="waves-effect waves-light btn">
+              Tue 4/5/2016, 9 : 00 AM</a>
+              <h5 class="flow-text"> Reviewer Comment : Excellent job on your first project :)</h5>
+            </div>
+          </div>
+      </div> <!-- cd-timeline-content -->
+    </div> <!-- cd-timeline-block -->
 
 
-    <div class="cd-timeline-block">
+
+
+    <div class="cd-timeline-block" id="upload">
       <div class="cd-timeline-img cd-movie">
       </div> <!-- cd-timeline-img -->
 
@@ -205,7 +216,7 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-    <div class="cd-timeline-block">
+    <div class="cd-timeline-block" id="optional">
       <div class="cd-timeline-img cd-movie">
       </div> <!-- cd-timeline-img -->
 
@@ -271,32 +282,60 @@
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
+$(document).ready(function(){
+    $(this).scrollTop(0);
+});
+
+ $(document).ready(function(){
+    $('.tabs-wrapper').pushpin({ top: $('.tabs-wrapper').offset().top });
+  });
+
 
    $(document).ready(function() {
     Materialize.updateTextFields();
   });
 
-   $('#submit').on('click', function(e) {
+   $('#step1Button').on('click', function(e) {
+      $('#step2').trigger('click');
+   });
+
+   $('#submit, #step2Button').on('click', function(e) {
         if($('#step2').hasClass('active')) {
           $('#step3').trigger('click');
           window.scrollTo(0, 0);
           $('#submit').hide();
           $('#done').show();
           $('#file, #message').val('');
+          $("body").scrollTop($("#rubric").offset().top)
+
 
         }
    });
 
-   $('#step1, #step2').on('click', function(e) {
+   $('#step1').on('click', function(e) {
+    $('#upload, #optional').show();
       $('#history').hide();
        $('#submit').show();
        $('#done').hide();
+       $("body").scrollTop(0)
    });
 
+   $('#step2').on('click', function(e) {
+    $('#upload, #optional').show();
+      $('#history').hide();
+       $('#submit').show();
+       $('#done').hide();
+       $("body").scrollTop($("#resources").offset().top)
+   });
+
+
     $('#step3').on('click', function(e) {
+      $('#upload, #optional').hide();
       $('#history').show();
        $('#submit').hide();
        $('#done').show();
+        $("body").scrollTop($("#rubric").offset().top)
+
    });
 
   </script>
