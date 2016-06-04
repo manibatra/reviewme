@@ -30,24 +30,24 @@
     <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home:landing' %}" class="brand-logo"><i class="material-icons left medium">assignment_turned_in</i>ReviewMe</a>
     {% if request.user.is_authenticated %}
       <ul class="right hide-on-med-and-down">
-        <li><a href="{% url 'home:landing' %}">Projects</a></li>
-        <li><a href="{% url 'projects:reviewer_dashboard' %}">Reviwer Dashboard</a></li>
-        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+        <li><a class="flow-text" href="{% url 'home:landing' %}">Projects</a></li>
+<!--         <li><a href="">Reviwer Dashboard</a></li>
+ -->        <li><a class="flow-text" href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
     {% else %}
       <ul class="right hide-on-med-and-down">
-        <li><a  class="btn deep-orange" href="{% url 'users:login_user' %}">Sign In</a></li>
+        <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
       </ul>
     {% endif %}
     {% if request.user.is_authenticated %}
       <ul class="side-nav" id="nav-mobile">
         <li><a href="{% url 'home:landing' %}">Projects</a></li>
-        <li><a href="{% url 'projects:reviewer_dashboard' %}">Reviwer Dashboard</a></li>
-        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
+<!--         <li><a href="">Reviwer Dashboard</a></li>
+ -->        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
     {% else %}
       <ul class="side-nav" id="nav-mobile">
-        <li><a  class="btn deep-orange" href="{% url 'users:login_user' %}">Sign In</a></li>
+        <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
       </ul>
     {% endif %}
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
