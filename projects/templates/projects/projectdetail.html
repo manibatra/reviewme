@@ -63,28 +63,28 @@
       </div>
         <section id="cd-timeline" class="cd-container">
     <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-picture">
+      <div class="cd-timeline-img light-blue lighten-1">
       </div> <!-- cd-timeline-img -->
 
       <div class="cd-timeline-content">
        <h5>Project Description</h5>
-        <h5 class="flow-text"><blockquote class="green-border">{{ project.description }}</blockquote></h5>
+        <h5 class="flow-text"><blockquote class="blue-border">{{ project.description }}</blockquote></h5>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
      <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-picture">
+      <div class="cd-timeline-img light-blue lighten-1">
       </div> <!-- cd-timeline-img -->
 
       <div class="cd-timeline-content">
        <h5>Example</h5>
-        <h5 class="flow-text"><blockquote class="green-border">An example of the project is included below. Check it out:</blockquote></h5>
+        <h5 class="flow-text"><blockquote class="blue-border">An example of the project is included below. Check it out:</blockquote></h5>
         <a href="{{project.example}}" class="waves-effect waves-light btn" target="_blank">Example</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
     <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-picture">
+      <div class="cd-timeline-img light-blue lighten-1">
       </div> <!-- cd-timeline-img -->
 
       <div class="cd-timeline-content">
@@ -102,12 +102,12 @@
     </div> <!-- cd-timeline-block -->
 
      <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-location">
+      <div class="cd-timeline-img light-blue lighten-1">
       </div> <!-- cd-timeline-img -->
 
       <div class="cd-timeline-content">
         <h5>Resources</h5>
-        <h5 class="flow-text"><blockquote class="yellow-border">Checkout the following resources that will help you with the background knowledge required to complete this project:</blockquote></h5>
+        <h5 class="flow-text"><blockquote class="blue-border">Checkout the following resources that will help you with the background knowledge required to complete this project:</blockquote></h5>
         <ol class="browser-default disc">
         {% for item in resources %}
          <div class="col s12 m12 break-word">
@@ -121,24 +121,24 @@
 
 
     <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-location">
+      <div class="cd-timeline-img light-blue lighten-1">
       </div> <!-- cd-timeline-img -->
 
       <div class="cd-timeline-content">
         <h5>Rubric</h5>
-        <h5 class="flow-text"><blockquote class="yellow-border">Have a look at the rubric. You must meet all the specifications in the rubric:</blockquote></h5>
+        <h5 class="flow-text"><blockquote class="blue-border">Have a look at the rubric. You must meet all the specifications in the rubric:</blockquote></h5>
         <a href="{% url 'projects:project_specs' project.id %}" class="waves-effect waves-light btn" target="_blank">Rubric</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
   {% if history %}
     <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-location">
+      <div class="cd-timeline-img light-blue lighten-1">
       </div> <!-- cd-timeline-img -->
 
       <div class="cd-timeline-content">
         <h5>Reviews</h5>
-        <h5 class="flow-text"><blockquote class="yellow-border">You can access your past history from here:</blockquote></h5>
+        <h5 class="flow-text"><blockquote class="blue-border">You can access your past history from here:</blockquote></h5>
         {% for item in history %}
           {% if item.review_files %}
           <div class="row">
@@ -159,12 +159,12 @@
     {% if status == "No" %}
 
     <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-movie">
+      <div class="cd-timeline-img light-blue lighten-1">
       </div> <!-- cd-timeline-img -->
 
       <div class="cd-timeline-content">
         <h5>Optional message for reviewer</h5>
-        <h5 class="flow-text"><blockquote class="red-border">Leave an optional message for the reviewer. It can be something relevant to the project or just a hello: </blockquote></h5>
+        <h5 class="flow-text"><blockquote class="blue-border">Leave an optional message for the reviewer. It can be something relevant to the project or just a hello: </blockquote></h5>
         <div class="row">
           <div class="input-field col s12 m12">
             <textarea id="icon_prefix2" name="notes" class="materialize-textarea"></textarea>
@@ -175,13 +175,13 @@
     </div> <!-- cd-timeline-block -->
 
       <div class="cd-timeline-block">
-      <div class="cd-timeline-img cd-movie">
+      <div class="cd-timeline-img light-blue lighten-1">
       </div> <!-- cd-timeline-img -->
 
       <div class="cd-timeline-content">
         <h5>Upload</h5>
             {% csrf_token %}
-        <h5 class="flow-text"><blockquote class="red-border">Create the required files in your favourite text editor. When you're ready, ensure all your files are zipped together. Only <strong>.zip</strong> files will be accepted for submission:</blockquote></h5>
+        <h5 class="flow-text"><blockquote class="blue-border">Create the required files in your favourite text editor. When you're ready, ensure all your files are zipped together. Only <strong>.zip</strong> files will be accepted for submission:</blockquote></h5>
         <div class="file-field input-field">
           <div class="btn">
             <span>Choose File</span>

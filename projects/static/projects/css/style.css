@@ -123,17 +123,11 @@ header h1 {
   background: #f0ca45;
 }
 
-.green-border {
-  border-color: #75ce66;
+.blue-border {
+  border-color: #29b6f6;
 }
 
-.yellow-border {
-  border-color: #f0ca45;
-}
 
-.red-border {
-  border-color: #c03b44;
-}
 
 
 @-webkit-keyframes cd-bounce-1 {
