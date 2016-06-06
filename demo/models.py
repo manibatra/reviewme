@@ -14,7 +14,12 @@ class Intro(models.Model):
 	user = models.OneToOneField(User, on_delete = models.CASCADE)
 	q_a = models.TextField()
 	q_b = models.TextField()
+	note = models.TextField(null=True, blank=True)
+	feedback = models.TextField(null=True, blank=True)
+	finished = models.BooleanField(default=False)
+	reviewing = models.BooleanField(default=False)
 	review_files = models.FileField(upload_to=review_directory_path, blank=True, null=True)
+
 
 	def __unicode__(self):
 		return self.user.get_username()
