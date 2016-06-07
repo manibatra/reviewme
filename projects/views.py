@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Category, SubCategory, Project, Submission, Reviewer, Role, Objective, Spec, Resource
+from demo.models import Intro
 from django.db.models import Count
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect,HttpResponse, Http404
@@ -16,6 +17,13 @@ def showCategories(request):
 	all_categories = Category.objects.annotate(num_projects=Count('subcategory__project', distinct=True))
 	context['type'] = 'categories'
 	context['items'] = all_categories
+	if request.user.is_authenticated():
+		try:
+			user = User.objects.get(pk=request.user.id)
+			user_intro = Intro.objects.get(user=user)
+			context['intro'] = user_intro
+		except:
+			pass
 	return render(request, 'projects/categories.html', context)
 
 def showSubCategories(request, category_id):
