@@ -27,3 +27,6 @@ def submit_intro(request):
 		return render(request, 'users/signup.html', context)
 	else:
 		raise Http404()
+
+def view_intro(request):
+	return render(request, 'demo/viewintro.html')
