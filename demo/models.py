@@ -12,8 +12,8 @@ def review_directory_path(instance, filename):
 # Create your models here.
 class Intro(models.Model):
 	user = models.OneToOneField(User, on_delete = models.CASCADE)
-	q_a = models.TextField()
-	q_b = models.TextField()
+	q_a = models.TextField(blank=False)
+	q_b = models.TextField(blank=False)
 	note = models.TextField(null=True, blank=True)
 	feedback = models.TextField(null=True, blank=True)
 	finished = models.BooleanField(default=False)

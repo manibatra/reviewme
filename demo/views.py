@@ -23,6 +23,15 @@ def begin(request):
 
 def start_intro(request):
 	#add redirect to view intro if user already has intro object
+	if request.user.is_authenticated():
+		user = User.objects.get(pk=request.user.id)
+		try:
+			user_intro = Intro.objects.get(user=user)
+			context = {}
+			context['intro'] = user_intro
+			return render(request, 'demo/viewintro.html', context)
+		except:
+			return render(request, 'demo/startintro.html')
 	return render(request, 'demo/startintro.html')
 
 def submit_intro(request):
@@ -34,6 +43,9 @@ def submit_intro(request):
 				user_intro.save()
 			except IntegrityError as e:
 				return render(request, 'demo/viewintro.html')
+			except:
+				messages.add_message(request, messages.ERROR, 'Make sure that you have answered both the questions')
+				return render(request, 'demo/startintro.html')
 			messages.add_message(request, messages.SUCCESS, 'Your project has been submitted.')
 			return render(request, 'demo/viewintro.html')
 		else:
