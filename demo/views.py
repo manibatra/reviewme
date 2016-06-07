@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from projects.models import Project, Objective, Resource
 from django.conf import settings
+from django.http import Http404
 
 # Create your views here.
 def begin(request):
@@ -15,3 +16,14 @@ def begin(request):
 
 def start_intro(request):
 	return render(request, 'demo/startintro.html')
+
+def submit_intro(request):
+	if request.method == 'POST':
+		context = {}
+		context['q_a'] = request.POST['goal']
+		context['q_b'] = request.POST['inspire']
+		context['note'] = request.POST['notes']
+		context['message'] = 'Thanks for filling up the project. Now signup to get the feedback'
+		return render(request, 'users/signup.html', context)
+	else:
+		raise Http404()
