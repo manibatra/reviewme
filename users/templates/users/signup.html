@@ -39,6 +39,11 @@
       <div class="row">
         <form class="col s12" id="signupForm" action="{% url 'users:signup_user' %}">
           {% csrf_token %}
+          {% if message %}
+            <input type="hidden" name="goal" value="{{q_a}}">
+            <input type="hidden" name="inspire" value="{{q_b}}">
+            <input type="hidden" name="note" value="{{note}}">
+          {% endif %}
           <div class="row">
             <div class="input-field col s6 m4 offset-m4 offset-s3">
               <input id="first_name" type="text" class="validate" name="firstName">
