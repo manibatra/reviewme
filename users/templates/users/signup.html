@@ -32,6 +32,11 @@
         </div>
       </div>
       <div class="row">
+        <div class="col s12 center-align">
+                  <h4 class="flow-text">{{message}}</h4>
+        </div>
+      </div>
+      <div class="row">
         <form class="col s12" id="signupForm" action="{% url 'users:signup_user' %}">
           {% csrf_token %}
           <div class="row">
