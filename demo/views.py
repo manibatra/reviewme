@@ -3,6 +3,8 @@ from projects.models import Project, Objective, Resource
 from .models import Intro
 from django.conf import settings
 from django.http import Http404
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 def begin(request):
@@ -34,6 +36,7 @@ def view_intro(request):
 		user = User.objects.get(pk=request.user.id)
 		try:
 			user_intro = Intro.objects.get(user=user)
+			context = {}
 			context['intro'] = user_intro
 			return render(request, 'demo/viewintro.html', context)
 		except:

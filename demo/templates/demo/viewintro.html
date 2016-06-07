@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Hello, World!</title>
+  <title>Hello, World! - Reviewed</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -142,7 +142,7 @@
             <div class="col s12 m12">
               <a href="{{intro.review_files.url}}" class="waves-effect waves-light btn">
               Your first review</a>
-              <h5 class="flow-text"> Reviewer Comment : {{item.feedback}}</h5>
+              <h5 class="flow-text"> Reviewer Comment : {{intro.feedback}}</h5>
             </div>
           </div>
       </div> <!-- cd-timeline-content -->
@@ -155,7 +155,7 @@
         <div class="col s12 m8">
             <div class="row">
               <div class="col s12 m12">
-              {% if item.finished %}
+              {% if intro.finished %}
                   <h5 class="flow-text">You have finished this project! Yay!</h5>
 
               {% else %}

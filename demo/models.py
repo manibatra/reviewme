@@ -17,7 +17,7 @@ class Intro(models.Model):
 	note = models.TextField(null=True, blank=True)
 	feedback = models.TextField(null=True, blank=True)
 	finished = models.BooleanField(default=False)
-	reviewing = models.BooleanField(default=False)
+	reviewing = models.BooleanField(default=True)
 	review_files = models.FileField(upload_to=review_directory_path, blank=True, null=True)
 
 
