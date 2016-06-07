@@ -40,8 +40,8 @@
         <form class="col s12" id="signupForm" action="{% url 'users:signup_user' %}">
           {% csrf_token %}
           {% if message %}
-            <input type="hidden" name="goal" value="{{q_a}}">
-            <input type="hidden" name="inspire" value="{{q_b}}">
+            <input type="hidden" name="q_a" value="{{q_a}}">
+            <input type="hidden" name="q_b" value="{{q_b}}">
             <input type="hidden" name="note" value="{{note}}">
           {% endif %}
           <div class="row">

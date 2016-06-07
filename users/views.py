@@ -4,6 +4,7 @@ from django.conf import settings
 #auth related imports
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from demo.models import Intro
 
 #imports for validation
 from django.core.validators import validate_email
@@ -91,6 +92,13 @@ def signupUser(request):
 
 		except:
 			response = {'status' : 0, 'msg' : 'Things just blew up. Contact us at manibatra2002@gmail.com'}
+			return HttpResponse(json.dumps(response), content_type='application/json')
+
+		try:
+			new_intro = Intro(user=user, q_a=request.POST['q_a'], q_b=request.POST['q_b'], note=request.POST['note'])
+			new_intro.save()
+		except Exception as e:
+			response = {'status' : 0, 'msg' : str(e)}
 			return HttpResponse(json.dumps(response), content_type='application/json')
 
 	else:
