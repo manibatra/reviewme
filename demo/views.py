@@ -22,7 +22,7 @@ def submit_intro(request):
 		context = {}
 		context['q_a'] = request.POST['goal']
 		context['q_b'] = request.POST['inspire']
-		context['note'] = request.POST['notes']
+		context['note'] = request.POST['note']
 		context['message'] = 'Thanks for filling up the project. Now signup to get the feedback'
 		return render(request, 'users/signup.html', context)
 	else:
