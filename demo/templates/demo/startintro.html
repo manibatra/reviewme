@@ -130,7 +130,7 @@
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-<form id="submitForm" action="change to submit url" enctype="multipart/form-data" method="post">
+<form id="submitForm" action="{% url 'demo:submit_intro' %}"  method="post">
                 {% csrf_token %}
 
     <div class="cd-timeline-block">
