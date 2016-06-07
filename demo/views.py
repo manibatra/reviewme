@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from projects.models import Project, Objective, Resource
+from .models import Intro
 from django.conf import settings
 from django.http import Http404
 
@@ -29,4 +30,13 @@ def submit_intro(request):
 		raise Http404()
 
 def view_intro(request):
-	return render(request, 'demo/viewintro.html')
+	if request.user.is_authenticated():
+		user = User.objects.get(pk=request.user.id)
+		try:
+			user_intro = Intro.objects.get(user=user)
+			context['intro'] = user_intro
+			return render(request, 'demo/viewintro.html', context)
+		except:
+			return render(request, 'demo/startintro.html')
+	else:
+		raise Http404()
