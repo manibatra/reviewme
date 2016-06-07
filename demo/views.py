@@ -38,6 +38,9 @@ def submit_intro(request):
 	if request.method == 'POST':
 		if request.user.is_authenticated():
 			user = User.objects.get(pk=request.user.id)
+			if request.POST['goal'] == "" or request.POST['inspire'] == "":
+				messages.add_message(request, messages.ERROR, 'Make sure that you have answered both the questions')
+				return render(request, 'demo/startintro.html')
 			try:
 				user_intro = Intro(user=user, q_a=request.POST['goal'], q_b=request.POST['inspire'], note=request.POST['note'])
 				user_intro.save()
@@ -49,6 +52,9 @@ def submit_intro(request):
 			messages.add_message(request, messages.SUCCESS, 'Your project has been submitted.')
 			return render(request, 'demo/viewintro.html')
 		else:
+			if request.POST['goal'] == "" or request.POST['inspire'] == "":
+				messages.add_message(request, messages.ERROR, 'Make sure that you have answered both the questions')
+				return render(request, 'demo/startintro.html')
 			context = {}
 			context['q_a'] = request.POST['goal']
 			context['q_b'] = request.POST['inspire']
@@ -70,3 +76,6 @@ def view_intro(request):
 			return render(request, 'demo/startintro.html')
 	else:
 		raise Http404()
+
+def view_rubric(request):
+	return render(request, 'demo/rubric.html')

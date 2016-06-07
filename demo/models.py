@@ -22,4 +22,7 @@ class Intro(models.Model):
 
 
 	def __unicode__(self):
-		return self.user.get_username()
+		if self.finished:
+			return self.user.get_username() + "  -  finished"
+		else:
+			return self.user.get_username() + "  -  not finished"
