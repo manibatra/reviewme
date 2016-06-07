@@ -95,10 +95,10 @@
             </div>
             <div class="card-action right-align">
               {% if request.user.is_authenticated %}
-              <a href="{% url 'projects:categories' %}" class="waves-effect waves-light btn orange" id="step2Button">OK, GOT IT!<i class="material-icons right">
+              <a href="{% url 'projects:categories' %}" class="waves-effect waves-light btn orange" id="step2Button">Try it out!<i class="material-icons right">
               check_circle</i></a>
               {% else %}
-              <a href="{% url 'demo:start_intro' %}" class="waves-effect waves-light btn orange" id="step2Button">OK, GOT IT!<i class="material-icons right">
+              <a href="{% url 'demo:start_intro' %}" class="waves-effect waves-light btn orange" id="step2Button">Try it out!<i class="material-icons right">
               check_circle</i></a>
               {% endif %}
             </div>
