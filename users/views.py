@@ -107,7 +107,7 @@ def signupUser(request):
 
 #method to show a view indacting user to confirm
 def verification_start(request):
-	context = { 'text' : 'A confirmation email has been sent to your email address. Click on the confirmation'
+	context = { 'text' : 'A confirmation email has been sent to your email address. Click on the confirmation '
 	'link in your email to activate your account', 'heading' : 'confirm your email address' }
 	return render(request, 'users/verification.html', context)
 
