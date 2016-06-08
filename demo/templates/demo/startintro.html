@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>{{ project.name }}</title>
+  <title>Hello, World!</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
@@ -32,7 +32,7 @@
     <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home:landing' %}" class="brand-logo"><i class="material-icons left medium">assignment_turned_in</i>ReviewMe</a>
     {% if request.user.is_authenticated %}
       <ul class="right hide-on-med-and-down">
-        <li><a href="{% url 'projects:sub_categories' project.sub_category.id %}" class="flow-text">{{project.sub_category.name|title}}</a></li>
+        <li><a class="flow-text" href="{% url 'home:landing' %}">Projects</a></li>
 <!--         <li><a href="">Reviwer Dashboard</a></li>
  -->        <li><a class="flow-text" href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
@@ -43,13 +43,12 @@
     {% endif %}
     {% if request.user.is_authenticated %}
       <ul class="side-nav" id="nav-mobile">
-        <li><a href="{% url 'projects:sub_categories' project.sub_category.id %}">{{project.sub_category.name|title}}</a></li>
+        <li><a href="{% url 'home:landing' %}">Projects</a></li>
 <!--         <li><a href="">Reviwer Dashboard</a></li>
  -->        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
     {% else %}
       <ul class="side-nav" id="nav-mobile">
-        <li><a href="{% url 'projects:sub_categories' project.sub_category.id %}" class="flow-text">{{project.sub_category.name|title}}</a></li>
         <li><a  class="flow-text" href="{% url 'users:login_user' %}">Sign In</a></li>
       </ul>
     {% endif %}
@@ -60,7 +59,7 @@
   <main>
        <div class="container margin-top-25">
        <div class="row left-align">
-        <h2 class="thin">{{ project.name }}</h2>
+        <h2 class="thin">Hello, World!</h2>
       </div>
         <section id="cd-timeline" class="cd-container">
     <div class="cd-timeline-block">
@@ -69,7 +68,9 @@
 
       <div class="cd-timeline-content">
        <h5>Project Description</h5>
-        <h5 class="flow-text"><blockquote class="blue-border">{{ project.description }}</blockquote></h5>
+        <h5 class="flow-text"><blockquote class="blue-border">This is a quick project to get you right into using
+        our platform. Here we will talk about your goals and how we can help you to acheive them. This will just take a minute to complete and you will get personalised
+        feedback regarding your goals.</blockquote></h5>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
@@ -80,7 +81,7 @@
       <div class="cd-timeline-content">
        <h5>Example</h5>
         <h5 class="flow-text"><blockquote class="blue-border">An example of the project is included below. Check it out:</blockquote></h5>
-        <a href="{{project.example}}" class="waves-effect waves-light btn" target="_blank">Example</a>
+        <a href="http://hellomaggiema.github.io/HelloWorld/index.html" class="waves-effect waves-light btn" target="_blank">Example</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
@@ -91,13 +92,13 @@
       <div class="cd-timeline-content">
         <h5>Project Objectives</h2>
         <ol class="browser-default disc">
-        {% for item in objectives %}
         <div class="col s12 m12">
 
-            <li class="flow-text">{{item.objective}}</li>
+            <li class="flow-text">Set your goals.</li>
+            <li class="flow-text">Help us help you.</li>
+            <li class="flow-text">Learn how to use the platform.</li>
 
         </div>
-        {% endfor %}
         </ol>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
@@ -110,11 +111,10 @@
         <h5>Resources</h5>
         <h5 class="flow-text"><blockquote class="blue-border">Checkout the following resources that will help you with the background knowledge required to complete this project:</blockquote></h5>
         <ol class="browser-default disc">
-        {% for item in resources %}
          <div class="col s12 m12 break-word">
-           <li class="flow-text"><a href="{{item.link}}" class="flow-text" target="_blank">{{item.title}} : {{item.description}}</a></li>
+           <li class="flow-text"><a href="http://personalexcellence.co/blog/why-set-goals/" class="flow-text" target="_blank">Goal setting : An article that discusses the importance of goal setting. </a></li>
+           <li class="flow-text"><a href="http://norvig.com/21-days.html" class="flow-text" target="_blank">Teach Yourself Programming in Ten Years : A great article about how to go about becoming a Programmer which is applicable to all kinds of skill acquisition.</a></li>
         </div>
-        {% endfor %}
         </ol>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
@@ -128,36 +128,13 @@
       <div class="cd-timeline-content">
         <h5>Rubric</h5>
         <h5 class="flow-text"><blockquote class="blue-border">Have a look at the rubric. You must meet all the specifications in the rubric:</blockquote></h5>
-        <a href="{% url 'projects:project_specs' project.id %}" class="waves-effect waves-light btn" target="_blank">Rubric</a>
+        <a href="{% url 'demo:view_rubric' %}" class="waves-effect waves-light btn" target="_blank">Rubric</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-  {% if history %}
-    <div class="cd-timeline-block">
-      <div class="cd-timeline-img light-blue lighten-1">
-      </div> <!-- cd-timeline-img -->
 
-      <div class="cd-timeline-content">
-        <h5>Reviews</h5>
-        <h5 class="flow-text"><blockquote class="blue-border">You can access your past history from here:</blockquote></h5>
-        {% for item in history %}
-          {% if item.review_files %}
-          <div class="row">
-            <div class="col s12 m12">
-              <a href="{{item.review_files.url}}" class="waves-effect waves-light btn">
-              {{ item.submitted_on|date:"D d M Y"}}, {{ item.submitted_on|time:"g:i A"}}</a>
-              <h5 class="flow-text"> Reviewer Comment : {{ item.feedback }}</h5>
-            </div>
-          </div>
-          {% endif %}
-        {% endfor %}
-      </div> <!-- cd-timeline-content -->
-    </div> <!-- cd-timeline-block -->
-
-    {% endif %}
-<form id="submitForm" action="{% url 'projects:submit_project' project.id %}" enctype="multipart/form-data" method="post">
-
-    {% if status == "No" %}
+<form id="submitForm" action="{% url 'demo:submit_intro' %}"  method="post">
+                {% csrf_token %}
 
     <div class="cd-timeline-block">
       <div class="cd-timeline-img light-blue lighten-1">
@@ -168,57 +145,50 @@
         <h5 class="flow-text"><blockquote class="blue-border">Leave an optional message for the reviewer. It can be something relevant to the project or just a hello: </blockquote></h5>
         <div class="row">
           <div class="input-field col s12 m12">
-            <textarea id="icon_prefix2" name="notes" class="materialize-textarea"></textarea>
+            <textarea id="icon_prefix2" name="note" class="materialize-textarea"></textarea>
             <label for="icon_prefix2">Message for the reviewer</label>
           </div>
         </div>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-      <div class="cd-timeline-block">
+     <div class="cd-timeline-block">
       <div class="cd-timeline-img light-blue lighten-1">
       </div> <!-- cd-timeline-img -->
 
       <div class="cd-timeline-content">
-        <h5>Upload</h5>
-            {% csrf_token %}
-        <h5 class="flow-text"><blockquote class="blue-border">Create the required files in your favourite text editor. When you're ready, ensure all your files are zipped together. Only <strong>.zip</strong> files will be accepted for submission:</blockquote></h5>
-        <div class="file-field input-field">
-          <div class="btn">
-            <span>Choose File</span>
-            <input type="file" name="projectzip">
-          </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" type="text">
+        <h5>Set your goals</h5>
+        <h5 class="flow-text"><blockquote class="blue-border">Usually you have to upload the required files but for this quick  project just type in your answers </blockquote></h5>
+        <div class="row">
+          <div class="input-field col s12 m12">
+            <textarea id="icon_prefix3" name="goal" class="materialize-textarea"></textarea>
+            <label for="icon_prefix3">What are your learning goals ? </label>
           </div>
         </div>
-
+        <div class="row">
+          <div class="input-field col s12 m12">
+            <textarea id="icon_prefix4" name="inspire" class="materialize-textarea"></textarea>
+            <label for="icon_prefix4">What kind of projects would you like us to create for you on ReviewMe? </label>
+          </div>
+        </div>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 
-    {% endif %}
+
 
   </section> <!-- cd-timeline -->
       <div class="row margin-top-25">
         <div class="col s12 m8">
             <div class="row">
               <div class="col s12 m12">
-              {% if status == "No" %}
-                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+
+                  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                   <i class="material-icons right">send</i>
                 </button>
-              {% elif status == "Yes" %}
 
-                  <h5 class="flow-text">You have finished this project! Yay!</h5>
-
-              {% else %}
-
-                  <h5 class="flow-text">Your project is awaiting review!</h5>
-
-              {% endif %}
+              </form>
               </div>
             </div>
-          </form>
         </div>
       </div>
     </div>

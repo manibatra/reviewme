@@ -65,7 +65,7 @@
       <div class="card orange lighten-5 margin-top-0">
             <div class="card-content grey-text text-darken-4">
               <span class="card-title" class="flow-text">Start a project</span>
-              <p class="little-big">After you have choosen the project that you wish to attempt, read through the <strong>Description</strong> and <strong>Objectives</strong>. Check out the <strong>Example</strong> and  <strong>Resources</strong>. Make sure you go through the specs listed down in the <strong>Rubric</strong> before you start working on the project.</p>
+              <p class="little-big">After you have chosen the project that you wish to attempt, read through the <strong>Description</strong> and <strong>Objectives</strong>. Check out the <strong>Example</strong> and  <strong>Resources</strong>. Make sure you go through the specs listed down in the <strong>Rubric</strong> before you start working on the project.</p>
             </div>
             <div class="card-action right-align">
               <a href="#rubric" class="waves-effect waves-light btn orange" id="step1Button">Next<i class="material-icons right">trending_flat</i></a>
@@ -95,10 +95,10 @@
             </div>
             <div class="card-action right-align">
               {% if request.user.is_authenticated %}
-              <a href="{% url 'projects:categories' %}" class="waves-effect waves-light btn orange" id="step2Button">OK, GOT IT!<i class="material-icons right">
+              <a href="{% url 'projects:categories' %}" class="waves-effect waves-light btn orange" id="step2Button">Try it out!<i class="material-icons right">
               check_circle</i></a>
               {% else %}
-              <a href="{% url 'users:signup_user' %}" class="waves-effect waves-light btn orange" id="step2Button">OK, GOT IT!<i class="material-icons right">
+              <a href="{% url 'demo:start_intro' %}" class="waves-effect waves-light btn orange" id="step2Button">Try it out!<i class="material-icons right">
               check_circle</i></a>
               {% endif %}
             </div>
@@ -177,7 +177,7 @@
       <div class="cd-timeline-content">
         <h5>Rubric</h5>
         <h5 class="flow-text"><blockquote class="blue-border">Have a look at the rubric. You must meet all the specifications in the rubric:</blockquote></h5>
-        <a href="{% url 'projects:project_specs' project.id %}" class="waves-effect waves-light btn" target="_blank">Rubric</a>
+        <a href="{% url 'demo:view_rubric' %}" class="waves-effect waves-light btn" target="_blank">Rubric</a>
       </div> <!-- cd-timeline-content -->
     </div> <!-- cd-timeline-block -->
 

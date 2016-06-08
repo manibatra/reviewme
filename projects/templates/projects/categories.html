@@ -70,12 +70,71 @@
   </div>
 </div>
 <div class="row margin-top-50">
+  {% if type == "categories" %}
+    <div class="col s12 m4">
+
+      <div class="card teal lighten-5">
+        <div class="card-content white-text category-description activator hover">
+          {% if intro %}
+          <a href="{% url 'demo:view_intro' %}">
+          {% else %}
+          <a href="{% url 'demo:view_intro' %}">
+          {% endif %}
+          <div class="col s10 full-height">
+            <span class="card-title black-text text-lighte-2 flow-text activator hover">Hello, World!</span>
+          </div>
+          </a>
+          <div class="col s2">
+            <i class="material-icons activator black-text hover text-lighten-2 right">more_vert</i>
+          </div>
+
+          <!--               <p class="light-blue-text">{{ item.description }}</p>
+        --></div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4 flow-text"><i class="material-icons right">close</i></span>
+          <p><strong>Hello, World!</strong></p>
+          <p>Learn how to use the platform! Fast!</p>
+        </div>
+        <div class="card-action white">
+            {% if intro %}
+              {% if intro.finished %}
+                  <a href="{% url 'demo:view_intro' %}" class="teal-text make-block">Finished Project<i class="material-icons right">beenhere</i></a>
+              {% else %}
+                  <a href="{% url 'demo:view_intro' %}" class="amber-text make-block">Awaiting Review<i class="material-icons right">timer</i></a>
+              {% endif %}
+
+            {% else %}
+              <a href="{% url 'demo:start_intro' %}" class="deep-orange-text make-block">Start<i class="material-icons right">trending_flat</i></a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
   {% for item in items %}
     <div class="col s12 m4">
-      <div class="card">
-        <div class="card-content white-text category-description activator hover">
-          <i class="material-icons activator light-blue-text hover text-darken-2 right">more_vert</i>
-          <span class="card-title light-blue-text text-darken-2 flow-text activator hover">{{ item.name }}</span>
+      {% if type == "categories" %}
+      <div class="card light-blue lighten-5">
+      {% elif type == "subcategories" %}
+       <div class="card deep-orange lighten-5">
+       {% else %}
+       <div class="card teal lighten-5">
+       {% endif %}
+        <div class="card-content white-text category-description hover">
+        {% if type == "categories" %}
+          <a href="{% url 'projects:sub_categories' item.id %}">
+        {% elif type == "subcategories" %}
+        <a href="{% url 'projects:projects' item.id %}">
+        {% else %}
+        <a href="{% url 'projects:project_detail' item.id %}">
+        {% endif %}
+        <div class="col s10 full-height">
+            <span class="card-title black-text text-lighten-1 flow-text activator hover">{{ item.name }}</span>
+          </div>
+        </a>
+          <div class="col s2">
+            <i class="material-icons activator black-text hover text-lighten-2 right">more_vert</i>
+          </div>
           <!--               <p class="light-blue-text">{{ item.description }}</p>
         --></div>
         <div class="card-reveal">
@@ -83,7 +142,7 @@
           <p><strong>{{ item.name }}</strong></p>
           <p>{{ item.description }}</p>
         </div>
-        <div class="card-action">
+        <div class="card-action white">
           {% if type == "categories" %}
             <a href="{% url 'projects:sub_categories' item.id %}" class="deep-orange-text make-block">{{item.num_projects}} Project{{item.num_projects|pluralize}}  Available</a>
             {% elif type == "subcategories" %}

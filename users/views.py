@@ -4,6 +4,7 @@ from django.conf import settings
 #auth related imports
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from demo.models import Intro
 
 #imports for validation
 from django.core.validators import validate_email
@@ -93,6 +94,11 @@ def signupUser(request):
 			response = {'status' : 0, 'msg' : 'Things just blew up. Contact us at manibatra2002@gmail.com'}
 			return HttpResponse(json.dumps(response), content_type='application/json')
 
+		try:
+			new_intro = Intro(user=user, q_a=request.POST['q_a'], q_b=request.POST['q_b'], note=request.POST['note'])
+			new_intro.save()
+		except Exception as e:
+			pass
 	else:
 		raise Http404()
 
@@ -101,7 +107,7 @@ def signupUser(request):
 
 #method to show a view indacting user to confirm
 def verification_start(request):
-	context = { 'text' : 'A confirmation email has been sent to your email address. Click on the confirmation'
+	context = { 'text' : 'A confirmation email has been sent to your email address. Click on the confirmation '
 	'link in your email to activate your account', 'heading' : 'confirm your email address' }
 	return render(request, 'users/verification.html', context)
 

@@ -4,14 +4,14 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>ReviewMe</title>
+  <title>Rubric</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 
  <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
   <link rel="stylesheet" href="{% static 'css/helper.css' %}">
-  {% if debug %}
+    {% if debug %}
 
   {% else %}
   <script>
@@ -26,7 +26,7 @@
   {% endif %}
   </head>
 <body>
-  <nav class="light-blue lighten-1" role="navigation">
+ <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home:landing' %}" class="brand-logo"><i class="material-icons left medium">assignment_turned_in</i>ReviewMe</a>
     {% if request.user.is_authenticated %}
       <ul class="right hide-on-med-and-down">
@@ -53,70 +53,43 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
+  <main>
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-      <h1 class="header center deep-orange-text">ReviewMe</h1>
+      <h1 class="header center deep-orange-text">Hello, World!</h1>
       <div class="row center">
-        <h5 class="header col s12 light">A place to learn by building and getting personalised feedback for projects.</h5>
-      </div>
-      <div class="row center margin-top-50 ">
-        <div class="col s12 m6 push-m1">
-          <a href="{% url 'projects:categories' %}" id="download-button" class="btn-large waves-effect waves-light deep-orange lighten-1 z-depth-3 margin-top-25">Get Started</a>
-        </div>
-        <div class="col s12 m6 pull-m1">
-          <!-- <a href="{{ media }}samples/reviewme.pdf" target="_blank" id="download-button" class="btn-large waves-effect waves-light deep-orange lighten-1 z-depth-3 margin-top-25">View Sample Review</a> -->
-          <a href="{% url 'demo:begin' %}" class="btn-large waves-effect waves-light deep-orange lighten-1 z-depth-3 margin-top-25">How It Works</a>
-        </div>
+        <h5 class="header col s12 light">This is a quick project to get you right into using
+        our platform. Here we will talk about your goals and how we can help you to acheive them. This will just take a minute to complete and you will get personalised
+        feedback regarding your goals.</h5>
       </div>
       <br><br>
 
     </div>
   </div>
-
-
-  <div class="container margin-top-25">
-    <div class="section">
-
-      <div class="row">
-        <div class="col s12 m12">
-          <div class="icon-block center-align">
-            <h2 class="center light-blue-text"><i class="material-icons large">description</i></h2>
-            <h5 class="center-align">Complete a Project</h5>
-
-            <p class="light flow-text">Our detailed objectives, specs and curated resources will help you become more confident as you build your way through our projects.</p>
-          </div>
-        </div>
-
-        <div class="col s12 m12">
-          <div class="icon-block center-align">
-            <h2 class="center light-blue-text"><i class="material-icons large">cloud_upload</i></h2>
-            <h5 class="center-align">Submit Your Project</h5>
-
-            <p class="light flow-text">Check off that you’ve met all the requirements listed in the project rubric and submit, sit back and relax.
-</p>
-          </div>
-        </div>
-
-        <div class="col s12 m12">
-          <div class="icon-block center-align">
-            <h2 class="center light-blue-text"><i class="material-icons large">rate_review</i></h2>
-            <h5 class="center-align">Reviews and Feedback</h5>
-
-            <p class="light flow-text">Behind the scenes, one of our enthusiastic reviewers will check your project and give you personalised feedback to help you progress further as you learn new concepts and skills.</p>
-          </div>
-        </div>
+  <div class="container">
+      <div class="row left-align">
+        <h2 class="thin">Specifications To Meet</h2>
       </div>
+        <div class="col s12 m12 margin-top-25">
+           <input name="1" type="checkbox" id="1" />
+          <label for="1" class="black-text"><h5 class="margin-top-0 flow-text">You have listed down what skill(s) you wish to learn. </h5></label>
+        </div>
+        <div class="col s12 m12 margin-top-25">
+           <input name="2" type="checkbox" id="2" />
+          <label for="2" class="black-text"><h5 class="margin-top-0 flow-text">You have listed down the kind of projects that you would like to see on ReviewMe.</h5></label>
+        </div>
+        <div class="col s12 m12 margin-top-25">
+           <input name="3" type="checkbox" id="3" />
+          <label for="3" class="black-text"><h5 class="margin-top-0 flow-text">You understand how ReviewMe works.</h5></label>
+        </div>
 
-    </div>
-    <br><br>
 
-    <div class="section">
-
-    </div>
   </div>
+  </main>
 
-<footer class="page-footer transparent">
+
+ <footer class="page-footer transparent">
    <div class="footer-copyright deep-orange lighten-1">
      <div class="container">
        <div class="row">
@@ -141,6 +114,25 @@
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+    var checkbox = $(document).find(':checkbox'),
+        checkboxCookieName = 'checkbox-state';
+
+    checkbox.each(function() {
+        if ($.cookie(checkboxCookieName + $(this).attr('name')) == 'true') {
+            $(this).attr('checked', 'checked');
+        } else {
+            $(this).removeAttr('checked');
+        }
+    });
+
+    checkbox.click(function() {
+        $.cookie(checkboxCookieName + $(this).attr('name'), $(this).prop('checked'));
+    });
+});
+  </script>
   <script type="text/javascript" async>
     (function($){
   $(function(){
@@ -154,6 +146,8 @@
    $(document).ready(function() {
     Materialize.updateTextFields();
   });
+
+
 
   </script>
 
