@@ -26,7 +26,7 @@ $("#loginForm").submit(function(event) {
         success: function(data) {
             if (data.status == 1) {
                 $('.fadeMe').hide();
-                window.location.replace('/');
+                window.location.replace('/content/categories/');
             } else if (data.status == 0 || data.status == 2) {
                 $('.fadeMe').hide();
                 alert(data.msg);
