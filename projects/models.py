@@ -28,11 +28,17 @@ class SubCategory(models.Model):
 	def __unicode__(self):
 		return self.name + "  (" + self.category.name + ")"
 
+
+def starter_directory_path(instance, filename):
+		# file will be uploaded to MEDIA_ROOT/category/sub_category/project.zip
+		return 'starters/{0}/{1}/{2}.zip'.format(instance.sub_category.category.name, instance.sub_category.name, instance.name)
+
 class Project(models.Model):
 	name = models.CharField(max_length=132)
 	description = models.TextField()
 	sub_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
 	example = models.URLField(null=True, blank=True)
+	starter = models.FileField(upload_to=starter_directory_path, blank=True, null=True)
 	cost = models.IntegerField()
 
 	def __unicode__(self):
