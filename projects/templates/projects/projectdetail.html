@@ -36,7 +36,7 @@
     <div class="nav-wrapper container"><a id="logo-container" href="{% url 'home:landing' %}" class="brand-logo"><i class="material-icons left medium">assignment_turned_in</i>ReviewMe</a>
     {% if request.user.is_authenticated %}
       <ul class="right hide-on-med-and-down">
-        <li><a href="{% url 'projects:sub_categories' project.sub_category.id %}" class="flow-text">{{project.sub_category.name|title}}</a></li>
+        <li><a href="{% url 'projects:projects' project.sub_category.id %}" class="flow-text">{{project.sub_category.name|title}}</a></li>
 <!--         <li><a href="">Reviwer Dashboard</a></li>
  -->        <li><a class="flow-text" href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
@@ -47,7 +47,7 @@
     {% endif %}
     {% if request.user.is_authenticated %}
       <ul class="side-nav" id="nav-mobile">
-        <li><a href="{% url 'projects:sub_categories' project.sub_category.id %}">{{project.sub_category.name|title}}</a></li>
+        <li><a href="{% url 'projects:projects' project.sub_category.id %}">{{project.sub_category.name|title}}</a></li>
 <!--         <li><a href="">Reviwer Dashboard</a></li>
  -->        <li><a  href="{% url 'users:logout_user' %}">Log Out</a></li>
       </ul>
@@ -112,6 +112,12 @@
 
       <div class="cd-timeline-content">
         <h5>Resources</h5>
+        {% if project.starter %}
+        <h5 class="flow-text"><blockquote class="blue-border">Download the project files to help you get started: </blockquote></h5>
+        <a href="{{project.starter.url}}" class="waves-effect waves-light btn">Project Files</a>
+        <br>
+        <br>
+        {% endif %}
         <h5 class="flow-text"><blockquote class="blue-border">Checkout the following resources that will help you with the background knowledge required to complete this project:</blockquote></h5>
         <ol class="browser-default disc">
         {% for item in resources %}
